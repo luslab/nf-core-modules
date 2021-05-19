@@ -1,0 +1,25 @@
+name: lint-dockerfiles
+#https://github.com/hadolint/hadolint
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  lint-docker:
+    runs-on: ubuntu-latest
+    strategy:
+        matrix:
+          docker-name: ['Dockerfile']
+          module-name: []
+          # include:
+          #   - docker-name: 'Dockerfile.cpu'
+          #     module-name: 'guppy'
+          #   - docker-name: 'Dockerfile.gpu'
+          #     module-name: 'guppy'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint Dockerfile
+        uses: brpaz/hadolint-action@master
+        with:
+          dockerfile: tools/${{matrix.module-name}}/${{matrix.docker-name}}
