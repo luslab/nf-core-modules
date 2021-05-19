@@ -29,7 +29,7 @@ process MD5 {
     label "min_mem"
     label "regular_queue"
 
-    tag "$meta.sample_id"
+    tag "$meta.id"
 
     container "biocontainers/biocontainers:v1.2.0_cv1"
 

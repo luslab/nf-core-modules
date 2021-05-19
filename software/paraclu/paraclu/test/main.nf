@@ -14,6 +14,7 @@ log.info ("Starting tests for test_flows...")
 
 include { ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_SIGXLS; ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_VERSION } from '../../../../test_workflows/assertions/main.nf'
 include { ASSERT_LINE_NUMBER   } from '../../../../test_workflows/assertions/main.nf'
+include { ASSERT_MD5 } from '../../../../test_workflows/assertions/main.nf'
 include { PARACLU } from '../main.nf' addParams( options: params.modules['paraclu'] ) 
 
 /*------------------------------------------------------------------------------------*/
@@ -33,7 +34,12 @@ Channel
 
 expected_line_counts = [
     sample1: 81,
-    sample2: 58
+    sample4: 58
+]
+
+expected_md5_hashes = [
+    sample1: "6fae57f714af12aefdb5c387ab72cd56",
+    sample4: "13df830d862eda8a54b494687104576f"
 ]
 
 /*------------------------------------------------------------------------------------*/
@@ -47,5 +53,6 @@ workflow {
     ASSERT_CHANNEL_COUNT_SIGXLS( PARACLU.out.sigxls, "PARACLU_SIGXL", 2 )
     ASSERT_CHANNEL_COUNT_VERSION( PARACLU.out.version, "PARACLU_VERSION", 2 )
     ASSERT_LINE_NUMBER( PARACLU.out.sigxls, "PARACLU", expected_line_counts )
+    ASSERT_MD5( PARACLU.out.sigxls, "PARACLU", expected_md5_hashes )
 
 }
