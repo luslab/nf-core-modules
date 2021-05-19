@@ -1,0 +1,10 @@
+## TODO nf-core: Please run the following command to build this file:
+#                nf-core modules create-test-yml htseq/count
+- name: htseq count
+  command: nextflow run ./tests/software/htseq/count -entry test_htseq_count -c tests/config/nextflow.config
+  tags:
+    - htseq
+    - htseq/count
+  files:
+    - path: output/htseq/test.bam
+      md5sum: e667c7caad0bc4b7ac383fd023c654fc
