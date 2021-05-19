@@ -24,6 +24,27 @@ process COUNT_LINES {
     """
 }
 
+process MD5 {
+    label "min_cores"
+    label "min_mem"
+    label "regular_queue"
+
+    tag "$meta.sample_id"
+
+    container "biocontainers/biocontainers:v1.2.0_cv1"
+
+    input:
+    tuple val(meta), path(input_file)
+
+    output:
+    tuple val(meta), stdout, emit: hash
+
+    script:
+    """
+    echo -n "\$(md5sum $input_file | awk '{print(\$1)}')"
+    """
+}
+
 /*------------------------------------------------------------------------------------*/
 /* Workflows
 --------------------------------------------------------------------------------------*/
@@ -57,6 +78,22 @@ workflow ASSERT_LINE_NUMBER {
         COUNT_LINES.out.subscribe {
             if(expected_line_counts[it[0].id] != it[1].toInteger()) {
                 throw new Exception("Error with channel " + channel_name + ": Sample " + it[0].id + " is expected to have " + expected_line_counts[it[0].id] + " lines, but has " + it[1])
+            }
+        }
+}
+
+workflow ASSERT_MD5 {
+    take: 
+    test_channel
+    channel_name
+    expected_hashes
+
+    main:
+        MD5(test_channel)
+
+        MD5.out.subscribe {
+            if(expected_hashes[it[0].id] != it[1]) {
+                throw new Exception("Error with channel " + channel_name + ": Sample " + it[0].id + " is expected to have md5 " + expected_hashes[it[0].id] + ", but has " + it[1])
             }
         }
 }
