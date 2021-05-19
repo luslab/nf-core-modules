@@ -41,7 +41,7 @@ process MD5 {
 
     script:
     """
-    echo -n "\$(md5sum $input_file | awk '{print(\$1)}')"
+    echo -n "\$(zcat -f $input_file | md5sum | awk '{print(\$1)}')"
     """
 }
 
