@@ -21,12 +21,12 @@ process HTSEQ_COUNT {
     }
 
     input:
-    tuple val(meta), path(bam)
+    tuple val(meta), path(bam), path (bai)
     path gtf
 
     output:
 
-    tuple val(meta), path("${prefix}"), emit: counts
+    tuple val(meta), path("*.tsv"), emit: counts
     path "*.version.txt"              , emit: version
 
     script:
@@ -38,9 +38,9 @@ process HTSEQ_COUNT {
         ${options.args} \\
         ${bam} \\
         ${gtf} \\
-        --nprocesses $task.cpus
-        >
-        ${prefix}
+        --nprocesses $task.cpus \\
+        > \\
+        ${prefix}.tsv
 
 
     htseq-count --version > ${software}.version.txt

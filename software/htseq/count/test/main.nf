@@ -24,12 +24,21 @@ include { ASSERT_CHANNEL_COUNT } from '../../../../test_workflows/assertions/mai
 /* Define input channels
 --------------------------------------------------------------------------------------*/
 
+// test_data_bam= [
+//     [[id:"sample1"], "https://github.com/luslab/nf-core-test-data/blob/main/data/bam/S1_chr1_test.bam"],
+//     [[id:"sample2"], "https://github.com/luslab/nf-core-test-data/blob/main/data/bam/S2_chr1_test.bam"]
+// ]
+
+// test_data_gtf = "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/gtf/chr1.gtf"
+
 test_data_bam= [
-    [[id:"sample1"], "https://github.com/luslab/nf-core-test-data/blob/main/data/bam/S1_chr1_test.bam"],
-    [[id:"sample2"], "https://github.com/luslab/nf-core-test-data/blob/main/data/bam/S2_chr1_test.bam"]
+    [[id:"sample1"], "/Users/westc/Nextflow/dev/repos/luslab-nf-modules/test_data/htseq/S1_chr1_test.bam", "/Users/westc/Nextflow/dev/data/S1_chr1_test.bam.bai"],
+    [[id:"sample2"], "/Users/westc/Nextflow/dev/repos/luslab-nf-modules/test_data/htseq/S2_chr1_test.bam", "/Users/westc/Nextflow/dev/data/S2_chr1_test.bam.bai"]
 ]
 
-test_data_gtf = "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/gtf/chr1.gtf"
+
+
+test_data_gtf = "/Users/westc/Nextflow/dev/repos/luslab-nf-modules/test_data/htseq/chr1.gtf"
 
 // testDataPairedEnd= [
 //     [[sample_id:"sample1"], "$baseDir/../../../test_data/htseq/S1_chr1_test.bam"],
@@ -39,7 +48,7 @@ test_data_gtf = "https://raw.githubusercontent.com/luslab/nf-core-test-data/main
 Channel
     .from(test_data_bam)
     // .map { row -> [ row[0], [file(row[1], checkIfExists: true)]]}
-    .map { row -> [ row[0], [row[1]]] }
+    // .map { row -> [ row[0], [row[1], row[2]]] }
     .set { ch_bam }
 
  Channel
