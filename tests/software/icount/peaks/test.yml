@@ -1,0 +1,10 @@
+## TODO nf-core: Please run the following command to build this file:
+#                nf-core modules create-test-yml icount/peaks
+- name: icount peaks
+  command: nextflow run ./tests/software/icount/peaks -entry test_icount_peaks -c tests/config/nextflow.config
+  tags:
+    - icount
+    - icount/peaks
+  files:
+    - path: output/icount/test.bam
+      md5sum: e667c7caad0bc4b7ac383fd023c654fc

@@ -12,34 +12,34 @@ log.info ("Starting tests for test_flows...")
 // params.options = [:]
 // options        = initOptions(params.options)
 
-include { ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_CONVERT; ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_VERSION } from '../../../../test_workflows/assertions/main.nf'
+include { ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_NORMCOVERAGE; ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_VERSION } from '../../../../test_workflows/assertions/main.nf'
 include { ASSERT_LINE_NUMBER   } from '../../../../test_workflows/assertions/main.nf'
 include { ASSERT_MD5 } from '../../../../test_workflows/assertions/main.nf'
-include { PARACLU_CONVERT } from '../main.nf'
+include { CROSSLINKS_NORMCOVERAGE } from '../main.nf'
 
 /*------------------------------------------------------------------------------------*/
 /* Define input channels
 /*------------------------------------------------------------------------------------*/
 
 test_data = [
-    [[id: 'sample1'], "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/paraclu/sample1.peaks.tsv.gz"],
-    [[id: 'sample4'], "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/paraclu/sample4.peaks.tsv.gz"]
+    [[id: 'sample1'], "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/crosslinks/sample1.xl.bed.gz"],
+    [[id: 'sample4'], "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/crosslinks/sample4.xl.bed.gz"]
 ]
 
 // Define test data input channels
 Channel
     .from( test_data )
     .map { row -> [ row[0], file(row[1], checkIfExists: true) ] }
-    .set { ch_peaks }
+    .set { ch_crosslinks }
 
 expected_line_counts = [
-    sample1: 7,
-    sample4: 4
+    sample1: 254,
+    sample4: 194
 ]
 
 expected_md5_hashes = [
-    sample1: "6b7a26d22a2fd96909a417c6b0467fc7",
-    sample4: "c96bfd13ea2590f8f94131f8abddc844"
+    sample1: "3c8585d76e284f59ce75e9ba1d77acd6",
+    sample4: "ae1f0992f7635fa768047bb5695edf0e"
 ]
 
 /*------------------------------------------------------------------------------------*/
@@ -48,11 +48,11 @@ expected_md5_hashes = [
 
 workflow {
 
-    PARACLU_CONVERT { ch_peaks }
+    CROSSLINKS_NORMCOVERAGE { ch_crosslinks }
 
-    ASSERT_CHANNEL_COUNT_CONVERT( PARACLU_CONVERT.out.peaks, "PARACLU_CONVERT", 2 )
-    ASSERT_CHANNEL_COUNT_VERSION( PARACLU_CONVERT.out.version, "PARACLU_VERSION", 2 )
-    ASSERT_LINE_NUMBER( PARACLU_CONVERT.out.peaks, "PARACLU_CONVERT", expected_line_counts )
-    ASSERT_MD5( PARACLU_CONVERT.out.peaks, "PARACLU_CONVERT", expected_md5_hashes )
+    ASSERT_CHANNEL_COUNT_NORMCOVERAGE( CROSSLINKS_NORMCOVERAGE.out.bedgraph, "CROSSLINKS_NORMCOVERAGE", 2 )
+    ASSERT_CHANNEL_COUNT_VERSION( CROSSLINKS_NORMCOVERAGE.out.version, "CROSSLINKS_VERSION", 2 )
+    ASSERT_LINE_NUMBER( CROSSLINKS_NORMCOVERAGE.out.bedgraph, "CROSSLINKS_NORMCOVERAGE", expected_line_counts )
+    ASSERT_MD5( CROSSLINKS_NORMCOVERAGE.out.bedgraph, "CROSSLINKS_NORMCOVERAGE", expected_md5_hashes )
 
 }
