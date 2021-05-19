@@ -20,17 +20,15 @@ include { initOptions; saveFiles; getSoftwareName } from './functions'
 params.options = [:]
 options        = initOptions(params.options)
 
+def VERSION = '10'
+
 process PARACLU {
-    tag '$bam'
+    tag "$meta.id"
     label 'process_medium'
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:[:], publish_by_meta:[]) }
+        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:meta, publish_by_meta:['id']) }
 
-    // TODO nf-core: List required Conda package(s).
-    //               Software MUST be pinned to channel (i.e. "bioconda"), version (i.e. "1.10").
-    //               For Conda, the build (i.e. "h9402c20_2") must be EXCLUDED to support installation on different operating systems.
-    // TODO nf-core: See section in main README for further information regarding finding and adding container addresses to the section below.
     conda (params.enable_conda ? "bioconda::paraclu=10" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
         container "https://depot.galaxyproject.org/singularity/paraclu:10--h9a82719_1"
@@ -39,23 +37,15 @@ process PARACLU {
     }
 
     input:
-    // TODO nf-core: Where applicable all sample-specific information e.g. "id", "single_end", "read_group"
-    //               MUST be provided as an input via a Groovy Map called "meta".
-    //               This information may not be required in some instances e.g. indexing reference genome files:
-    //               https://github.com/nf-core/modules/blob/master/software/bwa/index/main.nf
-    // TODO nf-core: Where applicable please provide/convert compressed files as input/output
-    //               e.g. "*.fastq.gz" and NOT "*.fastq", "*.bam" and NOT "*.sam" etc.
-    path bam
+    tuple val(meta), path(crosslinks)
 
     output:
-    // TODO nf-core: Named file extensions MUST be emitted for ALL output channels
-    path "*.bam", emit: bam
-    // TODO nf-core: List additional required output channels/values here
-    path "*.version.txt"          , emit: version
+    tuple val(meta), path("*.bed.gz"),  emit: peaks
+    path "*.version.txt"          ,     emit: version
 
     script:
     def software = getSoftwareName(task.process)
-    
+    def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
     // TODO nf-core: Where possible, a command MUST be provided to obtain the version number of the software e.g. 1.10
     //               If the software is unable to output a version number on the command-line then it can be manually specified
     //               e.g. https://github.com/nf-core/modules/blob/master/software/homer/annotatepeaks/main.nf
@@ -65,12 +55,16 @@ process PARACLU {
     // TODO nf-core: Please replace the example samtools command below with your module's command
     // TODO nf-core: Please indent the command appropriately (4 spaces!!) to help with readability ;)
     """
-    samtools \\
-        sort \\
-        $options.args \\
-        -@ $task.cpus \\
-        $bam
+    gzip -d -c $crosslinks | \
+    awk '{OFS = "\t"}{print \$1, \$6, \$3, \$5}' | \
+    sort -k1,1 -k2,2 -k3,3n > paraclu_input.tsv
 
-    echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//' > ${software}.version.txt
+    paraclu ${min_value} paraclu_input.tsv | \
+    paraclu-cut -d ${min_density_increase} -l ${max_cluster_length} | \
+    awk '{OFS = "\t"}{print \$1, \$3-1, \$4, ".", \$6, \$2}' |
+    sort -k1,1 -k2,2n |
+    gzip > ${name}.${min_value}_${max_cluster_length}nt_${min_density_increase}.peaks.bed.gz
+
+    echo $VERSION > ${software}.version.txt
     """
 }
