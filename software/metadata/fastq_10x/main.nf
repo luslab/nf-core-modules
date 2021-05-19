@@ -1,16 +1,19 @@
-workflow FASTQ_10X_METADATA {
+// Import groovy libs
+import groovy.transform.Synchronized
+
+workflow FASTQ_METADATA_10X {
     take: file_path
     main:
         Channel
             .fromPath( file_path )
             .splitCsv(header:true)
-            .map { row -> processRowTenx(row) }
+            .map { row -> processRow(row) }
             .set { metadata }
     emit:
         metadata
 }
 
-def processRowTenx(LinkedHashMap row, boolean flattenData = false) {
+def processRow(LinkedHashMap row, boolean flattenData = false, String glob='.*fastq.gz') {
     def meta = [:]
     meta.id = row.id
 
@@ -23,17 +26,22 @@ def processRowTenx(LinkedHashMap row, boolean flattenData = false) {
         }
     }
 
-    def array = []
-
     data = file(row.data, checkIfExists: true)
 
-    if (data instanceof List) {
-        array = [ meta, data ] // read files from glob list
-    } else if (data instanceof Path){
-        array = [ meta, [ data ] ] //read path
-    } else {
-        throw new Exception("data class not recognised")
+    // List files
+    if (!(data instanceof List) && data.isDirectory()){
+        data = data.listFiles()
     }
+    
+    // Filter files not matching glob
+    def files = []
+    for(def file:data){
+        if(file.toString().matches(glob)){
+            files.add(file)
+        }
+    }
+
+    def array = [ meta, files]
 
     return array
 }

@@ -18,7 +18,7 @@ include { ASSERT_CHANNEL_COUNT } from '../../../../test_workflows/assertions/mai
 --------------------------------------------------------------------------------------*/
   
 workflow {
-    FASTQ_METADATA_10X("$baseDir/../../../test_data/metadata/10x_test.csv")
+    FASTQ_METADATA_10X("https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/metadata/10x_test.csv")
 
     FASTQ_METADATA_10X.out.metadata | view
 
