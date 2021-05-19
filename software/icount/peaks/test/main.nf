@@ -27,11 +27,11 @@ include {ICOUNT_PEAKS} from '../main.nf' addParams( options: [args: '--half_wind
 test_beds = [
     [
         [id:"sample1"],
-        "https://raw.githubusercontent.com/luslab/luslab-nf-modules/master/test_data/icount/sample1.xl.bed.gz"
+        "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/crosslinks/sample1.xl.bed.gz"
     ],
     [
         [id:"sample2"],
-        "https://raw.githubusercontent.com/luslab/luslab-nf-modules/master/test_data/icount/sample2.xl.bed.gz"
+        "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/crosslinks/sample2.xl.bed.gz"
     ]
 ]
 
@@ -39,7 +39,7 @@ test_beds = [
 
 // Seg file channel
 Channel
-    .value(        "https://raw.githubusercontent.com/luslab/luslab-nf-modules/master/test_data/icount/segmentation.gtf.gz")
+    .value("https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/gtf/icount_segmentation.gtf.gz")
     .set {ch_seg}
 
 // Bed/seg channel
