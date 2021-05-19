@@ -6,7 +6,7 @@ options        = initOptions(params.options)
 
 def VERSION = '10'
 
-process PARACLU {
+process PARACLU_PARACLU {
     tag "$meta.id"
     label "low_cores"
     label "low_mem"
