@@ -36,8 +36,8 @@ test_beds = [
         "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/crosslinks/sample1.xl.bed.gz"
     ],
     [
-        [id:"sample2"],
-        "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/crosslinks/sample2.xl.bed.gz"
+        [id:"sample4"],
+        "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/crosslinks/sample4.xl.bed.gz"
     ]
 ]
 
@@ -56,22 +56,22 @@ Channel
 
 expected_peak_line_counts = [
     sample1: 5,
-    sample2: 2
+    sample4: 4
 ]
 
 expected_scores_line_counts = [
     sample1: 255,
-    sample2: 57
+    sample4: 195
 ]
 
 expected_peak_hashes = [
-    sample1: "78b3dc666a38dc54409399b9e96fbef8",
-    sample2: "d87724228144e5cb44ec71c7e1085889"
+    sample1: "4984fdc8e94ef357bd99dad420a098be",
+    sample4: "22d80735d26199e75cf87e632c1b76e4"
 ]
 
 expected_scores_hashes = [
     sample1: "477c7bec8b1a1faf209afc514235a111",
-    sample2: "f27b128d4d457dadb6890e2e127fdf86"
+    sample4: "b0384def31f9f125ad03558d181c7b05"
 ]
 
 /*------------------------------------------------------------------------------------*/
