@@ -1,11 +1,9 @@
 name: icount_segment
-## TODO nf-core: Add a description of the module and list keywords
-description: write your description here
+description: Formats a GTF file for use with iCount peaks
 keywords:
-  - sort
+  - iCLIP
 tools:
   - icount:
-      ## TODO nf-core: Add a description and other details for the software below
       description: Computational pipeline for analysis of iCLIP data
       homepage: None
       documentation: None
@@ -13,35 +11,26 @@ tools:
       doi: ""
       licence: ['MIT']
 
-## TODO nf-core: Add a description of all of the variables used as input
-input:
-  - meta:
-      type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id:'test', single_end:false ]
-  ## TODO nf-core: Delete / customise this example input
-  - bam:
-      type: file
-      description: BAM/CRAM/SAM file
-      pattern: "*.{bam,cram,sam}"
 
-## TODO nf-core: Add a description of all of the variables used as output
+input:
+  - gtf:
+      type: file
+      description: A GTF file to use for the segmentation
+      pattern: "*.{gtf}"
+  - fai:
+      type: file
+      description: FAI file corresponding to the reference sequence
+      pattern: "*.{fai}"
+
 output:
-  - meta:
-      type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id:'test', single_end:false ]
+  - gtf:
+      type: file
+      description: Segmented GTF file for use with iCount peaks
+      pattern: "*.{gtf}"
   - version:
       type: file
       description: File containing software version
       pattern: "*.{version.txt}"
-  ## TODO nf-core: Delete / customise this example output
-  - bam:
-      type: file
-      description: Sorted BAM/CRAM/SAM file
-      pattern: "*.{bam,cram,sam}"
 
 authors:
   - "@marc-jones"
