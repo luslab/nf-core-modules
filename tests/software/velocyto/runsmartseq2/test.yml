@@ -1,0 +1,10 @@
+## TODO nf-core: Please run the following command to build this file:
+#                nf-core modules create-test-yml velocyto/runsmartseq2
+- name: velocyto runsmartseq2
+  command: nextflow run ./tests/software/velocyto/runsmartseq2 -entry test_velocyto_runsmartseq2 -c tests/config/nextflow.config
+  tags:
+    - velocyto
+    - velocyto/runsmartseq2
+  files:
+    - path: output/velocyto/test.bam
+      md5sum: e667c7caad0bc4b7ac383fd023c654fc
