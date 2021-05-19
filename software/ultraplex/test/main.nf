@@ -20,8 +20,7 @@ include {ULTRAPLEX as ULTRAPLEX_SINGLE} from '../main.nf' addParams(options: [ p
 include {ULTRAPLEX as ULTRAPLEX_PAIRED} from '../main.nf' addParams(options: [ publish_dir: 'ultraplex_paired' ] )
 include {ULTRAPLEX as ULTRAPLEX_ARGS} from '../main.nf' addParams(options: [ publish_dir: 'ultraplex_single_args', args: '--phredquality 0' ] )
 include {ASSERT_CHANNEL_COUNT} from '../../../test_workflows/assertions/test/main.nf'
-include {ASSERT_LINE_NUMBER as line_count_1; ASSERT_LINE_NUMBER as line_count_2;
-ASSERT_LINE_NUMBER as line_count_3; ASSERT_LINE_NUMBER as line_count_4; ASSERT_LINE_NUMBER as line_count_5} from "../../../test_workflows/assertions/main.nf"
+//include {ASSERT_LINE_NUMBER as line_count_1; ASSERT_LINE_NUMBER as line_count_2; ASSERT_LINE_NUMBER as line_count_3; ASSERT_LINE_NUMBER as line_count_4; ASSERT_LINE_NUMBER as line_count_5} from "../../../test_workflows/assertions/main.nf"
 
 
 /*------------------------------------------------------------------------------------*/
@@ -142,10 +141,10 @@ workflow {
     ASSERT_CHANNEL_COUNT( ULTRAPLEX_SINGLE.out.report, "report", 1)
 
     // Testing fastq output lengths
-    line_count_1( ch_valid_reads_single, "single_valid_reads",
-        single_end_valid_reads_line_count )
-    line_count_2( ch_no_match_reads_single, "single_no_match",
-        single_end_no_match_line_count )
+    //line_count_1( ch_valid_reads_single, "single_valid_reads",
+    //    single_end_valid_reads_line_count )
+    //line_count_2( ch_no_match_reads_single, "single_no_match",
+    //    single_end_no_match_line_count )
 
     // DIFFERENT ARGS
 
@@ -173,10 +172,10 @@ workflow {
     ASSERT_CHANNEL_COUNT( ULTRAPLEX_ARGS.out.report, "report", 1)
 
     // Testing fastq output lengths
-    line_count_3( ch_valid_reads_single_args, "single_valid_reads_args",
-        single_end_zero_phred_valid_reads_line_count )
-    line_count_4( ch_no_match_reads_single_args, "single_no_match_args",
-        single_end_zero_phred_no_match_line_count )
+    //line_count_3( ch_valid_reads_single_args, "single_valid_reads_args",
+    //    single_end_zero_phred_valid_reads_line_count )
+    //line_count_4( ch_no_match_reads_single_args, "single_no_match_args",
+    //    single_end_zero_phred_no_match_line_count )
 
     // PAIRED END
 
@@ -196,6 +195,6 @@ workflow {
     ASSERT_CHANNEL_COUNT( ULTRAPLEX_PAIRED.out.report, "report", 1)
 
     // // Testing fastq output lengths
-    line_count_5( ch_valid_reads_paired, "paired_valid_reads_args",
-        paired_end_valid_reads_line_count )
+    //line_count_5( ch_valid_reads_paired, "paired_valid_reads_args",
+    //    paired_end_valid_reads_line_count )
 }
