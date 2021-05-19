@@ -21,11 +21,11 @@ process VELOCYTO_RUNSMARTSEQ2 {
     }
 
     input:
-    tuple val(meta), path(bam)
+    tuple val(meta), path(bam), path(bai)
     path gtf
 
     output:
-    tuple val(meta), path("*.bam"), emit: bam
+    tuple val(meta), path("*.loom"), emit: velocyto
     path "*.version.txt"          , emit: version
 
     script:
@@ -33,7 +33,12 @@ process VELOCYTO_RUNSMARTSEQ2 {
     def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
 
     """
-    
+    velocyto \\
+        run-smartseq2 \\
+        $options.args \\
+        -o . \\
+        $bam \\
+        $gtf \\
 
     """
 }
