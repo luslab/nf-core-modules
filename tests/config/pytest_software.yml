@@ -1,0 +1,7 @@
+icount/peaks:
+  - software/icount/peaks/**
+  - tests/software/icount/peaks/**
+
+icount/segment:
+  - software/icount/segment/**
+  - tests/software/icount/segment/**
