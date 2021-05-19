@@ -5,13 +5,13 @@ params.options = [:]
 options        = initOptions(params.options)
 
 process ULTRAPLEX {
-    tag '${meta.sample_id}'
+    tag "${meta.id}"
     label "max_cores"
     label "max_memory"
     label "regular_queue"
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:[:], publish_by_meta:[]) }
+        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:meta, publish_by_meta:['id']) }
 
     conda (params.enable_conda ? "bioconda::ultraplex=1.1.5" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
@@ -39,16 +39,16 @@ process ULTRAPLEX {
     }
     read_list = reads.collect{it.toString()}
     if (read_list.size > 1){
-        ultraplex_command = "ultraplex \\
+        ultraplex_command = """ultraplex \\
         --inputfastq ${read_list[0]} \\
         --input_2 ${read_list[1]} \\
         --barcodes $barcode_file \\
-        --threads ${task.cpus} ${args}"
+        --threads ${task.cpus} ${args}"""
     } else {
-        ultraplex_command = "ultraplex \\
+        ultraplex_command = """ultraplex \\
         --inputfastq ${read_list[0]} \\
         --barcodes $barcode_file \\
-        --threads ${task.cpus} ${args}"
+        --threads ${task.cpus} ${args}"""
     }
     if (params.verbose){
         println ("[MODULE] ultraplex command: " + ultraplex_command)
