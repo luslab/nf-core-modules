@@ -2,18 +2,31 @@
 
 nextflow.enable.dsl=2
 
-// Don't overwrite global params.modules, create a copy instead and use that within the main script.
+/*------------------------------------------------------------------------------------*/
+/* Define params
+--------------------------------------------------------------------------------------*/
+
 def analysis_scripts = [:]
 analysis_scripts.r_test = file("$baseDir/bin/r_test.R", checkIfExists: true)
 
-include {R} from '../main.nf' addParams(script: analysis_scripts.r_test)
+/*------------------------------------------------------------------------------------*/
+/* Module inclusions
+--------------------------------------------------------------------------------------*/
 
-// Define test data
+include {R} from '../main.nf' addParams(script: analysis_scripts.r_test)
+include {ASSERT_CHANNEL_COUNT} from "$baseDir/../../../test_workflows/assertions/main.nf"
+
+/*------------------------------------------------------------------------------------*/
+/* Define input channels
+--------------------------------------------------------------------------------------*/
 test_data = [
     [[id:"sample1"], "$baseDir/../../../test_data/r/test.csv"]
 ] 
 
-// Define test data channel
+/*------------------------------------------------------------------------------------*/
+/* Run tests
+--------------------------------------------------------------------------------------*/
+
 Channel
     .from(test_data)
     .map{row -> [row[0], file(row[1], checkIfExists: true)]}
@@ -21,4 +34,5 @@ Channel
 
 workflow {
     R (ch_test)
+    ASSERT_CHANNEL_COUNT( R.out.r_output, "r_output", 1)
 }

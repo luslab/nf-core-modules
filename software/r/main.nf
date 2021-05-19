@@ -31,6 +31,6 @@ process R {
         $options.args
 
     rm -r input
-    echo \$(samtools --version 2>&1) | sed 's/^.*samtools //; s/Using.*\$//' > ${software}.version.txt
+    echo \$(R --version 2>&1) | sed -n 1p | sed 's/^.*version //; s/ (.*//' > ${software}.version.txt
     """
 }
