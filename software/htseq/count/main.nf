@@ -21,7 +21,7 @@ process HTSEQ_COUNT {
     }
 
     input:
-    tuple val(meta), path(reads)
+    tuple val(meta), path(bam)
     path gtf
 
     output:
@@ -35,8 +35,8 @@ process HTSEQ_COUNT {
 
     """
     htseq-count \\
-        ${opts.args} \\
-        ${reads} \\
+        ${options.args} \\
+        ${bam} \\
         ${gtf} \\
         --nprocesses $task.cpus
         >
