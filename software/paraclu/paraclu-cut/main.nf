@@ -24,8 +24,8 @@ process PARACLU_CUT {
     tuple val(meta), path(sigxls)
 
     output:
-    tuple val(meta), path("*.bed.gz"),  emit: peaks
-    path "*.version.txt",               emit: version
+    tuple val(meta), path("*.peaks.tsv.gz"),    emit: peaks
+    path "*.version.txt",                       emit: version
 
     script:
     def software = getSoftwareName(task.process)
@@ -34,11 +34,14 @@ process PARACLU_CUT {
     """
     gzip -d -c $sigxls | \
         paraclu-cut \
-        ${options.args} \
-        awk '{OFS = "\t"}{print \$1, \$3-1, \$4, ".", \$6, \$2}' |
-        sort -k1,1 -k2,2n | \
-        gzip > ${prefix}.peaks.bed.gz
+        ${options.args} | \
+        gzip > ${prefix}.peaks.tsv.gz
 
     echo $VERSION > ${software}.version.txt
     """
 }
+
+
+        // awk '{OFS = "\t"}{print \$1, \$3-1, \$4, ".", \$6, \$2}' |
+        // sort -k1,1 -k2,2n | \
+        // gzip > ${prefix}.peaks.bed.gz

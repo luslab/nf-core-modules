@@ -24,7 +24,7 @@ process PARACLU {
     tuple val(meta), path(crosslinks)
 
     output:
-    tuple val(meta), path("*.tsv.gz"),  emit: sigxl
+    tuple val(meta), path("*.sigxls.tsv.gz"),  emit: sigxls
     path "*.version.txt",               emit: version
 
     script:
@@ -39,7 +39,7 @@ process PARACLU {
     paraclu \
         ${options.args} \
         paraclu_input.tsv | \
-        gzip > ${prefix}.paraclu.tsv.gz
+        gzip > ${prefix}.sigxls.tsv.gz
 
     echo $VERSION > ${software}.version.txt
     """
