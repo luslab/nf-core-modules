@@ -7,7 +7,7 @@ process COUNT_LINES {
     label "min_mem"
     label "regular_queue"
 
-    tag "$meta.sample_id"
+    tag "$meta.id"
 
     container "biocontainers/biocontainers:v1.2.0_cv1"
 
@@ -29,7 +29,7 @@ process MD5 {
     label "min_mem"
     label "regular_queue"
 
-    tag "$meta.sample_id"
+    tag "$meta.id"
 
     container "biocontainers/biocontainers:v1.2.0_cv1"
 
@@ -41,7 +41,7 @@ process MD5 {
 
     script:
     """
-    echo -n "\$(md5sum $input_file | awk '{print(\$1)}')"
+    echo -n "\$(zcat -f $input_file | md5sum | awk '{print(\$1)}')"
     """
 }
 
