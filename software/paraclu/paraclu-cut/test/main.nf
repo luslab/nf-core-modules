@@ -21,10 +21,9 @@ include { PARACLU_CUT } from '../main.nf' addParams( options: params.modules['pa
 /*------------------------------------------------------------------------------------*/
 
 test_data = [
-    [[id: 'sample1'], "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/paraclu/sample1.paraclu.tsv.gz"],
-    [[id: 'sample2'], "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/paraclu/sample2.paraclu.tsv.gz"]
+    [[id: 'sample1'], "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/paraclu/sample1.sigxls.tsv.gz"],
+    [[id: 'sample4'], "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/paraclu/sample4.sigxls.tsv.gz"]
 ]
-
 
 // Define test data input channels
 Channel
@@ -34,7 +33,7 @@ Channel
 
 expected_line_counts = [
     sample1: 7,
-    sample2: 0
+    sample4: 4
 ]
 
 /*------------------------------------------------------------------------------------*/

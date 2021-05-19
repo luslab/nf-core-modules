@@ -6,7 +6,7 @@ options        = initOptions(params.options)
 
 def VERSION = '10'
 
-process PARACLU_CUT {
+process PARACLU_CONVERT {
     tag "$meta.id"
     label 'process_medium'
     publishDir "${params.outdir}",
@@ -21,10 +21,10 @@ process PARACLU_CUT {
     }
 
     input:
-    tuple val(meta), path(sigxls)
+    tuple val(meta), path(peaks)
 
     output:
-    tuple val(meta), path("*.peaks.tsv.gz"),    emit: peaks
+    tuple val(meta), path("*.peaks.bed.gz"),    emit: peaks
     path "*.version.txt",                       emit: version
 
     script:
@@ -32,13 +32,11 @@ process PARACLU_CUT {
     def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
 
     """
-    gzip -d -c $sigxls | \
-        paraclu-cut \
-        ${options.args} | \
-        gzip > ${prefix}.peaks.tsv.gz
+    gzip -d -c $peaks | \
+        awk '{OFS = "\t"}{print \$1, \$3-1, \$4, ".", \$6, \$2}' |
+        sort -k1,1 -k2,2n | \
+        gzip > ${prefix}.peaks.bed.gz
 
     echo $VERSION > ${software}.version.txt
     """
 }
-
-
