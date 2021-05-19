@@ -7,7 +7,7 @@ process COUNT_LINES {
     label "min_mem"
     label "regular_queue"
 
-    tag "$meta.sample_id"
+    tag "$meta.id"
 
     container "biocontainers/biocontainers:v1.2.0_cv1"
 
@@ -55,8 +55,8 @@ workflow ASSERT_LINE_NUMBER {
         COUNT_LINES(test_channel)
 
         COUNT_LINES.out.subscribe {
-            if(expected_line_counts[it[0].sample_id] != it[1].toInteger()) {
-                throw new Exception("Error with channel " + channel_name + ": Sample " + it[0].sample_id + " is expected to have " + expected_line_counts[it[0].sample_id] + " lines, but has " + it[1])
+            if(expected_line_counts[it[0].id] != it[1].toInteger()) {
+                throw new Exception("Error with channel " + channel_name + ": Sample " + it[0].id + " is expected to have " + expected_line_counts[it[0].id] + " lines, but has " + it[1])
             }
         }
 }
