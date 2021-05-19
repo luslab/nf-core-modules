@@ -41,7 +41,7 @@ if(length(commandArgs(trailingOnly = TRUE)) == 0){
 }
 
 
-test_data <- read.csv(paste0(input_path, 'test.csv'), sep = '\t')[1:2,]
+test_data <- read.csv(paste0(input_path, 'r.csv'), sep = '\t')[1:2,]
 
 write.csv(test_data, paste0(output_path, 'test_out.csv'))
 
