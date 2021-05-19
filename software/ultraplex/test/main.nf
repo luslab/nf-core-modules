@@ -53,7 +53,7 @@ Channel
     .set { ch_fastq_paired_end }
 
 Channel
-    .fromPath(barcodes)
+    .value(file(barcodes))
     .set { barcodes }
 
 single_end_valid_reads_line_count = [

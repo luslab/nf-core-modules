@@ -22,7 +22,7 @@ process ULTRAPLEX {
 
     input:
     tuple val(meta), path(reads)
-    val(barcode_file)
+    path(barcode_file)
 
     output:
     tuple val(meta), path("*[!no_match].fastq.gz")             , emit: fastq
