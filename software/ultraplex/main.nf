@@ -37,16 +37,16 @@ process ULTRAPLEX {
         ext_args = options.args
         args += ext_args.trim()
     }
-    readList = reads.collect{it.toString()}
-    if (readList.size > 1){
+    read_list = reads.collect{it.toString()}
+    if (read_list.size > 1){
         ultraplex_command = "ultraplex \\
-        --inputfastq ${readList[0]} \\
-        --input_2 ${readList[1]} \\
+        --inputfastq ${read_list[0]} \\
+        --input_2 ${read_list[1]} \\
         --barcodes $barcode_file \\
         --threads ${task.cpus} ${args}"
     } else {
         ultraplex_command = "ultraplex \\
-        --inputfastq ${readList[0]} \\
+        --inputfastq ${read_list[0]} \\
         --barcodes $barcode_file \\
         --threads ${task.cpus} ${args}"
     }
