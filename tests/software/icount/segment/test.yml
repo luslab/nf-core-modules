@@ -1,0 +1,10 @@
+## TODO nf-core: Please run the following command to build this file:
+#                nf-core modules create-test-yml icount/segment
+- name: icount segment
+  command: nextflow run ./tests/software/icount/segment -entry test_icount_segment -c tests/config/nextflow.config
+  tags:
+    - icount
+    - icount/segment
+  files:
+    - path: output/icount/test.bam
+      md5sum: e667c7caad0bc4b7ac383fd023c654fc
