@@ -7,18 +7,12 @@ nextflow.enable.dsl=2
 log.info ("Starting tests for htseq...")
 
 /*------------------------------------------------------------------------------------*/
-/* Define params
---------------------------------------------------------------------------------------*/
-
-params.verbose = true
-// params.modules['htseq_count'].args = '-f bam -s no -m union'
-
-/*------------------------------------------------------------------------------------*/
 /* Module inclusions
 --------------------------------------------------------------------------------------*/
 
 include { HTSEQ_COUNT } from '../main.nf' addParams( options: params.modules['htseq_count'] )  
 include { ASSERT_CHANNEL_COUNT } from '../../../../test_workflows/assertions/main.nf'
+include { MD5 } from '../../../../test_workflows/assertions/main.nf'
 
 /*------------------------------------------------------------------------------------*/
 /* Define input channels
@@ -51,4 +45,7 @@ workflow {
     //Check count
     ASSERT_CHANNEL_COUNT( HTSEQ_COUNT.out.counts, "counts", 2)
     ASSERT_CHANNEL_COUNT( HTSEQ_COUNT.out.version, "version", 2)
+
+    //Check MD5
+    MD5( HTSEQ_COUNT.out.counts )
 }
