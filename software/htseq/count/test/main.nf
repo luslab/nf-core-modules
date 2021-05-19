@@ -27,7 +27,6 @@ test_data_bam= [
 
 Channel
     .from(test_data_bam)
-    // .map { row -> [ row[0], [file(row[1], checkIfExists: true)]]}
     .map { row -> [ row[0], [file(row[1], checkIfExists: true)], [file(row[2], checkIfExists: true)] ] }
     .set { ch_bam }
 
