@@ -3,22 +3,22 @@
 nextflow.enable.dsl=2
 
 // Don't overwrite global params.modules, create a copy instead and use that within the main script.
-def modules = params.modules.clone()
+def analysis_scripts = [:]
+analysis_scripts.r_test = file("$baseDir/bin/r_test.R", checkIfExists: true)
 
-include {r} from '../main.nf' addParams(options: modules['r'])
-
+include {R} from '../main.nf' addParams(script: analysis_scripts.r_test)
 
 // Define test data
 test_data = [
-    [[sample_id:"sample1"], "$baseDir/../../../test_data/r/test.csv"]
+    [[id:"sample1"], "$baseDir/../../../test_data/r/test.csv"]
 ] 
 
 // Define test data channel
 Channel
-    .from()
-    .map{row[0], file(row[1], checkIfExists: true)}
+    .from(test_data)
+    .map{row -> [row[0], file(row[1], checkIfExists: true)]}
     .set {ch_test}
 
 workflow {
-    r (ch_test)
+    R (ch_test)
 }

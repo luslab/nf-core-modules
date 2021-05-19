@@ -1,5 +1,5 @@
 # Set the base image to Ubuntu 16.04
-FROM rocker/tidyverse:4.0.0
+FROM rocker/r-base:latest
 
 LABEL authors="alex.thiery@crick.ac.uk" \
       description="Docker image containing Rstudio and getopt"
