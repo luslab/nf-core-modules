@@ -17,7 +17,13 @@ log.info ("Starting tests for iCount...")
 
 
 include {ICOUNT_PEAKS} from '../main.nf' addParams( options: [args: '--half_window 3 --fdr 0.05'] )
-// include {assert_channel_count} from '../../../workflows/test_flows/main.nf'
+include {
+    ASSERT_CHANNEL_COUNT;
+    ASSERT_LINE_NUMBER as ASSERT_PEAKS_LINE_NUMBER;
+    ASSERT_LINE_NUMBER as ASSERT_SCORES_LINE_NUMBER;
+    ASSERT_MD5 as ASSERT_PEAKS_MD5;
+    ASSERT_MD5 as ASSERT_SCORES_MD5
+} from "../../../../test_workflows/assertions/main.nf"
 
 /*------------------------------------------------------------------------------------*/
 /* Define input channels
@@ -48,20 +54,40 @@ Channel
     .map { row -> [ row[0], file(row[1], checkIfExists: true) ] }
     .set {ch_bed}
 
+expected_peak_line_counts = [
+    sample1: 5,
+    sample2: 2
+]
+
+expected_scores_line_counts = [
+    sample1: 255,
+    sample2: 57
+]
+
+expected_peak_hashes = [
+    sample1: "78b3dc666a38dc54409399b9e96fbef8",
+    sample2: "d87724228144e5cb44ec71c7e1085889"
+]
+
+expected_scores_hashes = [
+    sample1: "477c7bec8b1a1faf209afc514235a111",
+    sample2: "f27b128d4d457dadb6890e2e127fdf86"
+]
+
 /*------------------------------------------------------------------------------------*/
 /* Run tests
 --------------------------------------------------------------------------------------*/
 
 workflow {
-    // Run iCount
     ICOUNT_PEAKS( ch_bed, ch_seg) 
 
-    // Collect file names and view output
-    // icount.out.peaks | view
-    // icount.out.peak_scores | view
-    // icount.out.clusters | view
+    ASSERT_CHANNEL_COUNT( ICOUNT_PEAKS.out.peaks, "peaks", 2)
+    ASSERT_CHANNEL_COUNT( ICOUNT_PEAKS.out.scores, "scores", 2)
+    ASSERT_CHANNEL_COUNT( ICOUNT_PEAKS.out.version, "version", 2)
 
-    // assert_channel_count( icount.out.peaks, "peaks", 2)
-    // assert_channel_count( icount.out.peak_scores, "peak_scores", 2)
-    // assert_channel_count( icount.out.clusters, "clusters", 2)
+    ASSERT_PEAKS_LINE_NUMBER( ICOUNT_PEAKS.out.peaks, "peaks", expected_peak_line_counts)
+    ASSERT_SCORES_LINE_NUMBER( ICOUNT_PEAKS.out.scores, "scores", expected_scores_line_counts)
+
+    ASSERT_PEAKS_MD5( ICOUNT_PEAKS.out.peaks, "peaks", expected_peak_hashes)
+    ASSERT_SCORES_MD5( ICOUNT_PEAKS.out.scores, "scores", expected_scores_hashes)
 }
