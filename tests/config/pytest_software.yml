@@ -5,3 +5,23 @@ icount/peaks:
 icount/segment:
   - software/icount/segment/**
   - tests/software/icount/segment/**
+
+paraclu/paraclu:
+  - software/paraclu/paraclu/**
+  - tests/software/paraclu/paraclu/**
+
+paraclu/cut:
+  - software/paraclu/cut/**
+  - tests/software/paraclu/cut/**
+
+paraclu/convert:
+  - software/paraclu/convert/**
+  - tests/software/paraclu/convert/**
+
+crosslinks/coverage:
+  - software/crosslinks/coverage/**
+  - tests/software/crosslinks/coverage/**
+
+crosslinks/normcoverage:
+  - software/crosslinks/normcoverage/**
+  - tests/software/crosslinks/normcoverage/**
