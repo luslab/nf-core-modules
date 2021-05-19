@@ -40,7 +40,7 @@ process PARACLU {
     tuple val(meta), path(crosslinks)
 
     output:
-    tuple val(meta), path("*.bed.gz"),  emit: peaks
+    tuple val(meta), path("*.tsv.gz"),  emit: sigxls
     path "*.version.txt"          ,     emit: version
 
     script:
@@ -50,20 +50,20 @@ process PARACLU {
     //               If the software is unable to output a version number on the command-line then it can be manually specified
     //               e.g. https://github.com/nf-core/modules/blob/master/software/homer/annotatepeaks/main.nf
     // TODO nf-core: It MUST be possible to pass additional parameters to the tool as a command-line string via the "$options.args" variable
-    // TODO nf-core: If the tool supports multi-threading then you MUST provide the appropriate parameter
-    //               using the Nextflow "task" variable e.g. "--threads $task.cpus"
     // TODO nf-core: Please replace the example samtools command below with your module's command
     // TODO nf-core: Please indent the command appropriately (4 spaces!!) to help with readability ;)
     """
     gzip -d -c $crosslinks | \
-    awk '{OFS = "\t"}{print \$1, \$6, \$3, \$5}' | \
+    awk '{OFS = "\t"}{print \$1, \$6, \$2+1, \$5}' | \
     sort -k1,1 -k2,2 -k3,3n > paraclu_input.tsv
 
     paraclu ${min_value} paraclu_input.tsv | \
-    paraclu-cut -d ${min_density_increase} -l ${max_cluster_length} | \
+    paraclu-cut \
+        -d ${min_density_increase} \
+        -l ${max_cluster_length} | \
     awk '{OFS = "\t"}{print \$1, \$3-1, \$4, ".", \$6, \$2}' |
-    sort -k1,1 -k2,2n |
-    gzip > ${name}.${min_value}_${max_cluster_length}nt_${min_density_increase}.peaks.bed.gz
+    sort -k1,1 -k2,2n | \
+    gzip > ${prefix}.${min_value}_${max_cluster_length}nt_${min_density_increase}.peaks.bed.gz
 
     echo $VERSION > ${software}.version.txt
     """
