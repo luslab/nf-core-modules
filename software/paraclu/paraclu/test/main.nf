@@ -38,8 +38,8 @@ expected_line_counts = [
 ]
 
 expected_md5_hashes = [
-    sample1: "6fae57f714af12aefdb5c387ab72cd56",
-    sample4: "13df830d862eda8a54b494687104576f"
+    sample1: "502ce598c665dae472a681a66cb241a7",
+    sample4: "b92fb62a4f8871ec9a5956c8f0822c48"
 ]
 
 /*------------------------------------------------------------------------------------*/
