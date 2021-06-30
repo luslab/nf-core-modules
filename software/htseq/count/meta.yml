@@ -1,17 +1,17 @@
-name: paraclu
+name: htseq_count
 ## TODO nf-core: Add a description of the module and list keywords
 description: write your description here
 keywords:
   - sort
 tools:
-  - paraclu:
+  - htseq:
       ## TODO nf-core: Add a description and other details for the software below
-      description: Paraclu finds clusters in data attached to sequences.
+      description: HTSeq is a Python library to facilitate processing and analysis of data from high-throughput sequencing (HTS) experiments.
       homepage: None
       documentation: None
       tool_dev_url: None
       doi: ""
-      licence: ['GPL v3-or-later']
+      licence: ['GPL v3']
 
 ## TODO nf-core: Add a description of all of the variables used as input
 input:
@@ -44,4 +44,4 @@ output:
       pattern: "*.{bam,cram,sam}"
 
 authors:
-  - "@amchakra"
+  - "@charlotte-west"

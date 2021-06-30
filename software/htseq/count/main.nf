@@ -4,45 +4,45 @@ include { initOptions; saveFiles; getSoftwareName } from './functions'
 params.options = [:]
 options        = initOptions(params.options)
 
-def VERSION = '10'
-
-process PARACLU_PARACLU {
+process HTSEQ_COUNT {
     tag "$meta.id"
-    label "low_cores"
+    label "min_cores"
     label "low_mem"
     label "regular_queue"
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
         saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:meta, publish_by_meta:['id']) }
 
-    conda (params.enable_conda ? "bioconda::paraclu=10" : null)
+    conda (params.enable_conda ? "bioconda::htseq=0.13.5" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/paraclu:10--h9a82719_1"
+        container "https://depot.galaxyproject.org/singularity/htseq:0.13.5--py39h70b41aa_1"
     } else {
-        container "quay.io/biocontainers/paraclu:10--h9a82719_1"
+        container "quay.io/biocontainers/htseq:0.13.5--py39h70b41aa_1"
     }
 
     input:
-    tuple val(meta), path(crosslinks)
+    tuple val(meta), path(bam), path (bai)
+    path gtf
 
     output:
-    tuple val(meta), path("*.sigxls.tsv.gz"),  emit: sigxls
-    path "*.version.txt",               emit: version
+
+    tuple val(meta), path("*.tsv"), emit: counts
+    path "*.version.txt"              , emit: version
 
     script:
     def software = getSoftwareName(task.process)
     def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
 
     """
-    gzip -d -c $crosslinks | \
-        awk '{OFS = "\t"}{print \$1, \$6, \$2+1, \$5}' | \
-        sort -k1,1 -k2,2 -k3,3n > paraclu_input.tsv
+    htseq-count \\
+        ${options.args} \\
+        ${bam} \\
+        ${gtf} \\
+        --nprocesses $task.cpus \\
+        > \\
+        ${prefix}.tsv
 
-    paraclu \
-        ${options.args} \
-        paraclu_input.tsv | \
-        gzip > ${prefix}.sigxls.tsv.gz
 
-    echo $VERSION > ${software}.version.txt
+    htseq-count --version > ${software}.version.txt
     """
 }
