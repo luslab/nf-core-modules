@@ -1,32 +1,29 @@
 name: bedtools_shift
-## TODO nf-core: Add a description of the module and list keywords
-description: write your description here
+description: Shifts features in a bedfile by a specified number of bases or proportion of the feature
 keywords:
-  - sort
+  - shift
+  - bed
 tools:
   - bedtools:
-      ## TODO nf-core: Add a description and other details for the software below
-      description: A powerful toolset for genome arithmetic
-      homepage: None
-      documentation: None
-      tool_dev_url: None
-      doi: ""
-      licence: ['GPL v2']
+      description: |
+        A set of tools for genomic analysis tasks, specifically enabling genome arithmetic (merge, count, complement) on various file types.
+      documentation: https://bedtools.readthedocs.io/en/latest/content/tools/intersect.html
 
-## TODO nf-core: Add a description of all of the variables used as input
 input:
   - meta:
       type: map
       description: |
         Groovy Map containing sample information
         e.g. [ id:'test', single_end:false ]
-  ## TODO nf-core: Delete / customise this example input
-  - bam:
+  - bed:
       type: file
-      description: BAM/CRAM/SAM file
-      pattern: "*.{bam,cram,sam}"
+      description: BED feature file
+      pattern: "*.{bed}"
+  - fai:
+      type: file
+      description: Input fasta index file
+      pattern: "*.{fai}"
 
-## TODO nf-core: Add a description of all of the variables used as output
 output:
   - meta:
       type: map
@@ -37,11 +34,10 @@ output:
       type: file
       description: File containing software version
       pattern: "*.{version.txt}"
-  ## TODO nf-core: Delete / customise this example output
-  - bam:
+  - bed:
       type: file
-      description: Sorted BAM/CRAM/SAM file
-      pattern: "*.{bam,cram,sam}"
+      description: Shifted BED feature file
+      pattern: "*.{bed}"
 
 authors:
   - "@marc-jones"
