@@ -12,10 +12,9 @@
 /* ENABLE DSL2 */
 nextflow.enable.dsl = 2
 
-
 /*
 ========================================================================================
-    PARAMETERS INITIALISATION
+    PARAMETER INITIALISATION
 ========================================================================================
 */
 
@@ -25,8 +24,7 @@ nextflow.enable.dsl = 2
 ========================================================================================
 */
 
-if (params.input)     { ch_input     = file(params.input)     } else { exit 1, "Input samplesheet not specified!"     }
-if (params.barcode)   { ch_barcode   = file(params.input)     } else { exit 1, "barcode not specified!"     }
+if (params.input)     { ch_input     = file(params.input)     } else { exit 1, "Input samplesheet not specified!" }
 
 /*
 ========================================================================================
@@ -35,7 +33,7 @@ if (params.barcode)   { ch_barcode   = file(params.input)     } else { exit 1, "
 */
 
 include { luslab_header as LUSLAB_HEADER } from "./software/luslab_util/main"
-include { ULTRAPLEX } from "./software/ultraplex/main"
+include { ULTRAPLEX } from "./software/ultraplex/main" addParams(options: [ publish_dir: 'ultraplex_single' ] )
 
 /*
 ========================================================================================
@@ -53,11 +51,14 @@ workflow {
     /*
      * CHANNEL MANIPULATION: Read in samplesheet, validate and stage input files 
      */
-    ch_fastq
+    Channel
         .fromPath( ch_input )
         .splitCsv(header:true)
+        .view()
         .map { row -> processRow(row) }
+        .view()
         .set { ch_meta_fastq }
+
 
     /*
      * MODULE: Demultiplex FastQs
