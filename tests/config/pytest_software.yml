@@ -1,3 +1,7 @@
+bedtools/shift:
+  - software/bedtools/shift/**
+  - tests/software/bedtools/shift/**
+
 icount/peaks:
   - software/icount/peaks/**
   - tests/software/icount/peaks/**
