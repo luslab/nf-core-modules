@@ -1,34 +1,39 @@
 // Import groovy libs
 import groovy.transform.Synchronized
 
-workflow FASTQ_SMARTSEQ2_METADATA {
+include {UNTAR} from "$baseDir/../../../untar/main.nf"
+
+workflow FASTQ_METADATA_SMARTSEQ2 {
     take: file_path
     main:
+    
         Channel
             .fromPath( file_path )
             .splitCsv(header:true)
             .map { row -> processRow(row) }
+            .branch{ it ->  tar: it[1].toString().endsWith("tar.gz") == true
+                            dir: it[1].toString().endsWith("tar.gz") == false}
+            .set { metadata }
+
+        UNTAR(metadata.tar)
+
+        // set value if channel is empty
+        UNTAR.out.untar.ifEmpty('empty').set{ch_tar}
+        metadata.dir.ifEmpty('empty').set{ch_dir}
+
+        // combine and filter empty channels
+        ch_dir.concat(ch_tar).filter { it != 'empty' }.set{metadata}
+
+        metadata
             .map { row -> listFiles(row, '.*.gz') }
             .flatMap { row -> enumerateFastqDir(row) }
             .set { metadata }
+
     emit:
         metadata
 }
 
-@Synchronized
-def listFiles(row, glob){
-    file_array = []
-    files = row[1].get(0).listFiles()
-    for(def file:files){
-        if(file.toString().matches(glob)){
-            file_array.add(file)
-        }
-    }
-    array = [row[0], [file_array]]
-    return array
-}
-
-def processRow(LinkedHashMap row, boolean flattenData = false) {
+def processRow(LinkedHashMap row) {
     def meta = [:]
     meta.id = row.id
 
@@ -36,26 +41,28 @@ def processRow(LinkedHashMap row, boolean flattenData = false) {
         String key = entry.getKey();
         String value = entry.getValue();
     
-        if(key != "id" && key != "data1" && key != "data2") {
+        if(key != "id" && key != "data") {
             meta.put(key, value)
         }
     }
 
-    def array = []
-    if(!flattenData) {
-        if (row.data2 == null) {
-            array = [ meta, [ file(row.data1, checkIfExists: true) ] ]
-        } else {
-            array = [ meta, [ file(row.data1, checkIfExists: true), file(row.data2, checkIfExists: true) ] ]
+    data = file(row.data, checkIfExists: true)
+
+    def array = [ meta, data]
+    return array
+}
+
+@Synchronized
+def listFiles(row, glob){
+    file_array = []
+    println(row[1])
+    files = row[1].listFiles()
+    for(def file:files){
+        if(file.toString().matches(glob)){
+            file_array.add(file)
         }
     }
-    else { 
-        if (row.data2 == null) {
-            array = [ meta, file(row.data1, checkIfExists: true) ]
-        } else {
-            array = [ meta, file(row.data1, checkIfExists: true), file(row.data2, checkIfExists: true) ]
-        }
-    }
+    array = [row[0], file_array]
     return array
 }
 

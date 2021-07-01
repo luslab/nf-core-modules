@@ -23,5 +23,5 @@ workflow {
     FASTQ_METADATA_SMARTSEQ2.out.metadata | view
 
     // Check count
-    ASSERT_CHANNEL_COUNT( FASTQ_METADATA_SMARTSEQ2.out.metadata, "metadata_ss2", 6)
+    ASSERT_CHANNEL_COUNT( FASTQ_METADATA_SMARTSEQ2.out.metadata, "metadata_ss2", 4)
 }
