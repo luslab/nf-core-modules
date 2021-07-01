@@ -39,6 +39,7 @@ process VELOCYTO_RUNSMARTSEQ2 {
         -o . \\
         $bam \\
         $gtf \\
-
+    
+    echo \$(velocyto --version) | sed 's/^.*version //; s/ (.*//' > ${software}.version.txt
     """
 }
