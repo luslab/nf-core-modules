@@ -2,6 +2,10 @@ bedtools/shift:
   - software/bedtools/shift/**
   - tests/software/bedtools/shift/**
 
+bedtools/genomecov:
+  - software/bedtools/genomecov/**
+  - tests/software/bedtools/genomecov/**
+
 icount/peaks:
   - software/icount/peaks/**
   - tests/software/icount/peaks/**

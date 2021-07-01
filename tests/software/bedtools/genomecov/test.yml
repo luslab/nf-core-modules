@@ -1,0 +1,10 @@
+## TODO nf-core: Please run the following command to build this file:
+#                nf-core modules create-test-yml bedtools/shift
+- name: bedtools genomecov
+  command: nextflow run ./tests/software/bedtools/genomecov -entry test_bedtools_genomecov -c tests/config/nextflow.config
+  tags:
+    - bedtools
+    - bedtools/genomecov
+  files:
+    - path: output/bedtools/test.bam
+      md5sum: e667c7caad0bc4b7ac383fd023c654fc
