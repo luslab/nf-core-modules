@@ -1,0 +1,10 @@
+## TODO nf-core: Please run the following command to build this file:
+#                nf-core modules create-test-yml crosslinks/bamtoxlinks
+- name: crosslinks bamtoxlinks
+  command: nextflow run ./tests/software/crosslinks/bamtoxlinks -entry test_crosslinks_bamtoxlinks -c tests/config/nextflow.config
+  tags:
+    - crosslinks
+    - crosslinks/bamtoxlinks
+  files:
+    - path: output/crosslinks/test.bam
+      md5sum: e667c7caad0bc4b7ac383fd023c654fc

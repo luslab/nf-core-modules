@@ -20,12 +20,11 @@ process CROSSLINKS_GENOMECOVTOBED {
     }
 
     input:
-    tuple val(meta_pos), path(bed_pos)
-    tuple val(meta_neg), path(bed_neg)
+    tuple val(meta), path(bed_pos), path(bed_neg)
 
     output:
-    tuple val(meta_pos), path("*.bed"), emit: bed
-    path "*.version.txt"              , emit: version
+    tuple val(meta), path("*.bed"), emit: bed
+    path "*.version.txt"          , emit: version
 
     script:
     def software = getSoftwareName(task.process)
