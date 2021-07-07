@@ -1,0 +1,8 @@
+- name: icount segment
+  command: nextflow run ./tests/software/icount/segment -c tests/config/nextflow.config
+  tags:
+    - icount
+    - icount/segment
+  files:
+    - path: results/icount/icount_segmentation.gtf
+      md5sum: 9b45451d777e17d1f0e1ec002d0f3af0

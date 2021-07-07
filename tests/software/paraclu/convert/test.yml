@@ -1,0 +1,10 @@
+- name: paraclu convert
+  command: nextflow run ./tests/software/paraclu/convert -c tests/config/nextflow.config
+  tags:
+    - paraclu
+    - paraclu/convert
+  files:
+    - path: results/paraclu/sample1.peaks.bed.gz
+      md5sum: e667c7caad0bc4b7ac383fd023c654fc
+    - path: results/paraclu/sample4.peaks.bed.gz
+      md5sum: e667c7caad0bc4b7ac383fd023c654fc
