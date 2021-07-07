@@ -1,0 +1,39 @@
+crosslinks/coverage:
+  - software/crosslinks/coverage/**
+  - tests/software/crosslinks/coverage/**
+
+crosslinks/normcoverage:
+  - software/crosslinks/normcoverage/**
+  - tests/software/crosslinks/normcoverage/**
+
+htseq/count:
+  - software/htseq/count/**
+  - tests/software/htseq/count/**
+
+icount/peaks:
+  - software/icount/peaks/**
+  - tests/software/icount/peaks/**
+
+icount/segment:
+  - software/icount/segment/**
+  - tests/software/icount/segment/**
+
+paraclu/convert:
+  - software/paraclu/convert/**
+  - tests/software/paraclu/convert/**
+
+paraclu/cut:
+  - software/paraclu/cut/**
+  - tests/software/paraclu/cut/**
+
+paraclu/paraclu:
+  - software/paraclu/paraclu/**
+  - tests/software/paraclu/paraclu/**
+
+r:
+  - software/r/**
+  - tests/software/r/**
+
+ultraplex:
+  - software/ultraplex/**
+  - tests/software/ultraplex/**
