@@ -1,4 +1,0 @@
-- name: r
-  command: nextflow run ./tests/software/r/main.nf -c tests/config/nextflow.config
-  tags:
-    - r

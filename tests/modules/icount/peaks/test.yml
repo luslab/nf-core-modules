@@ -1,0 +1,10 @@
+- name: icount peaks
+  command: nextflow run ./tests/modules/icount/peaks -c tests/config/nextflow.config
+  tags:
+    - icount
+    - icount/peaks
+  files:
+    - path: results/icount/sample1.scores.tsv
+      md5sum: 477c7bec8b1a1faf209afc514235a111
+    - path: results/icount/sample4.scores.tsv
+      md5sum: b0384def31f9f125ad03558d181c7b05

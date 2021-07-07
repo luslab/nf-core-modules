@@ -20,7 +20,7 @@ jobs:
       - name: Set version and tags
         id: ver
         run: |
-          VERSION=`cat software/${{matrix.module-name}}/VERSION`
+          VERSION=`cat modules/${{matrix.module-name}}/VERSION`
           echo "version: $VERSION"
           echo "::set-output name=version::$(echo $VERSION)"
         shell: bash
@@ -30,6 +30,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: luslab/nf-modules-${{matrix.module-name}}
-          path: software/${{matrix.module-name}}
-          dockerfile: software/${{matrix.module-name}}/${{matrix.docker-file}}
+          path: modules/${{matrix.module-name}}
+          dockerfile: modules/${{matrix.module-name}}/${{matrix.docker-file}}
           tags: latest,${{matrix.tag}}-${{steps.ver.outputs.version}}
