@@ -1,0 +1,25 @@
+name: test-testing-workflows
+
+on:
+  pull_request:
+    branches: [ dev, main ]
+  # push:
+  #   branches: [ feat-testing ]
+
+jobs:
+  test-workflows:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        nxf_ver: ['']
+        module-name: ['assertions']
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Nextflow
+        run: |
+          export NXF_VER=${{matrix.nxf_ver}}
+          wget -qO- get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/ 
+      - name: Workflow testing
+        run: |
+          nextflow -C ${GITHUB_WORKSPACE}/test_workflows/${{matrix.module-name}}/test/nextflow.config run ${GITHUB_WORKSPACE}/test_workflows/${{matrix.module-name}}/test/main.nf 

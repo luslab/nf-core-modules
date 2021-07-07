@@ -1,0 +1,10 @@
+- name: htseq count
+  command: nextflow run ./tests/modules/htseq/count -c tests/config/nextflow.config
+  tags:
+    - htseq
+    - htseq/count
+  files:
+    - path: results/htseq/sample1.tsv
+      md5sum: d670ba20d717229b6c42ea74b1b39b14
+    - path: results/htseq/sample2.tsv
+      md5sum: d670ba20d717229b6c42ea74b1b39b14
