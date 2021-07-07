@@ -17,10 +17,10 @@ Please check you have done the following:
 - [ ] Added any new workflows to `.github/workflows/workflow-testing.yml`
 - [ ] Added any new test data to `test_data`
 - [ ] Bumped the version when changing an existing module
-  - Major.Minor.Patch
-    - Major for breaking changes
-    - Minor for feature updates and most things
-    - Patch for bug fixes and small things like comment and variable name updates
+    - Major.Minor.Patch
+        - Major for breaking changes
+        - Minor for feature updates and most things
+        - Patch for bug fixes and small things like comment and variable name updates
 
 ## Review
 
