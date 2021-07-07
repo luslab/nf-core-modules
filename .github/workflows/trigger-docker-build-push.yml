@@ -2,10 +2,10 @@ name: trigger-docker-build-push
 #https://github.com/marketplace/actions/build-and-push-docker-images
 
 on:
-  pull_request:
-    branches: [ feat-testing ]
+  # pull_request:
+  #   branches: [ feat-testing ]
   push:
-    branches: [ feat-testing ]
+    branches: [ main ]
 
 jobs:
   build-push-docker:
