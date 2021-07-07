@@ -16,9 +16,9 @@ params.verbose = true
 /* Module inclusions
 --------------------------------------------------------------------------------------*/
 
-include {ULTRAPLEX as ULTRAPLEX_SINGLE} from '../main.nf' addParams(options: [ publish_dir: 'ultraplex_single' ] )
-include {ULTRAPLEX as ULTRAPLEX_PAIRED} from '../main.nf' addParams(options: [ publish_dir: 'ultraplex_paired' ] )
-include {ULTRAPLEX as ULTRAPLEX_ARGS} from '../main.nf' addParams(options: [ publish_dir: 'ultraplex_single_args', args: '--phredquality 0' ] )
+include {ULTRAPLEX as ULTRAPLEX_SINGLE} from '../../../software/ultraplex/main.nf' addParams(options: [ publish_dir: 'ultraplex_single' ] )
+include {ULTRAPLEX as ULTRAPLEX_PAIRED} from '../../../software/ultraplex/main.nf' addParams(options: [ publish_dir: 'ultraplex_paired' ] )
+include {ULTRAPLEX as ULTRAPLEX_ARGS} from '../../../software/ultraplex/main.nf' addParams(options: [ publish_dir: 'ultraplex_single_args', args: '--phredquality 0' ] )
 include {ASSERT_CHANNEL_COUNT} from '../../../test_workflows/assertions/test/main.nf'
 //include {ASSERT_LINE_NUMBER as line_count_1; ASSERT_LINE_NUMBER as line_count_2; ASSERT_LINE_NUMBER as line_count_3; ASSERT_LINE_NUMBER as line_count_4; ASSERT_LINE_NUMBER as line_count_5} from "../../../test_workflows/assertions/main.nf"
 
@@ -29,16 +29,16 @@ include {ASSERT_CHANNEL_COUNT} from '../../../test_workflows/assertions/test/mai
 
 test_data_single_end = [
     [[id:'single_end'],
-        "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/fasta/ultraplex_reads1.fastq.gz"]
+        "${params.test_data_dir}fasta/ultraplex_reads1.fastq.gz"]
 ]
 
 test_data_paired_end = [
     [[id:'paired_end'], [
-        "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/fasta/ultraplex_reads1.fastq.gz",
-        "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/fasta/ultraplex_reads2.fastq.gz"]]
+        "${params.test_data_dir}fasta/ultraplex_reads1.fastq.gz",
+        "${params.test_data_dir}fasta/ultraplex_reads2.fastq.gz"]]
 ]
 
-barcodes = "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/csv/ultraplex_barcodes_5_and_3.csv"
+barcodes = "${params.test_data_dir}csv/ultraplex_barcodes_5_and_3.csv"
 
 Channel
     .from(test_data_single_end)

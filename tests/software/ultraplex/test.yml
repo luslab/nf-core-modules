@@ -1,0 +1,4 @@
+- name: ultraplex
+  command: nextflow run ./tests/software/ultraplex -c tests/config/nextflow.config
+  tags:
+    - ultraplex

@@ -10,7 +10,7 @@ log.info ("Starting tests for htseq...")
 /* Module inclusions
 --------------------------------------------------------------------------------------*/
 
-include { HTSEQ_COUNT } from '../main.nf' addParams( options: params.modules['htseq_count'] )  
+include { HTSEQ_COUNT } from '../../../../software/htseq/count/main.nf' addParams( options: [args: '-f bam -s no -m union'] )  
 include { ASSERT_CHANNEL_COUNT } from '../../../../test_workflows/assertions/main.nf'
 include { MD5 } from '../../../../test_workflows/assertions/main.nf'
 
@@ -18,11 +18,11 @@ include { MD5 } from '../../../../test_workflows/assertions/main.nf'
 /* Define input channels
 --------------------------------------------------------------------------------------*/
 
-test_data_gtf = "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/gtf/chr1.gtf"
+test_data_gtf = "${params.test_data_dir}gtf/chr1.gtf"
 
 test_data_bam= [
-    [[id:"sample1"], "https://github.com/luslab/nf-core-test-data/blob/main/data/bam_bai/S1_chr1_test.bam?raw=true", "https://github.com/luslab/nf-core-test-data/blob/main/data/bam_bai/S1_chr1_test.bam.bai?raw=true"],
-    [[id:"sample2"], "https://github.com/luslab/nf-core-test-data/blob/main/data/bam_bai/S2_chr1_test.bam?raw=true", "https://github.com/luslab/nf-core-test-data/blob/main/data/bam_bai/S2_chr1_test.bam.bai?raw=true"]
+    [[id:"sample1"], "${params.test_data_dir}bam_bai/S1_chr1_test.bam?raw=true", "${params.test_data_dir}bam_bai/S1_chr1_test.bam.bai?raw=true"],
+    [[id:"sample2"], "${params.test_data_dir}bam_bai/S2_chr1_test.bam?raw=true", "${params.test_data_dir}bam_bai/S2_chr1_test.bam.bai?raw=true"]
 ]
 
 Channel
