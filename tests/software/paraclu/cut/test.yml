@@ -5,6 +5,6 @@
     - paraclu/cut
   files:
     - path: results/paraclu/sample1.peaks.tsv.gz
-      md5sum: e667c7caad0bc4b7ac383fd023c654fc
+      md5sum: b048a33808b59897ef5031e8fa228a0c
     - path: results/paraclu/sample4.peaks.tsv.gz
-      md5sum: e667c7caad0bc4b7ac383fd023c654fc
+      md5sum: 191750fcbc59dd645a2028b694314dff

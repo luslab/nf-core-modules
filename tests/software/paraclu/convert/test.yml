@@ -5,6 +5,6 @@
     - paraclu/convert
   files:
     - path: results/paraclu/sample1.peaks.bed.gz
-      md5sum: e667c7caad0bc4b7ac383fd023c654fc
+      md5sum: 5637c135647d36d569f54583290a0519
     - path: results/paraclu/sample4.peaks.bed.gz
-      md5sum: e667c7caad0bc4b7ac383fd023c654fc
+      md5sum: a078adb926cc56810bd2ffe45d74fc50

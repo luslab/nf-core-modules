@@ -5,6 +5,6 @@
     - paraclu/paraclu
   files:
     - path: results/paraclu/sample1.sigxls.tsv.gz
-      md5sum: e667c7caad0bc4b7ac383fd023c654fc
+      md5sum: 6fae57f714af12aefdb5c387ab72cd56
     - path: results/paraclu/sample4.sigxls.tsv.gz
-      md5sum: e667c7caad0bc4b7ac383fd023c654fc
+      md5sum: 13df830d862eda8a54b494687104576f
