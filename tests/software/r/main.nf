@@ -20,7 +20,7 @@ include { ASSERT_CHANNEL_COUNT } from '../../../test_workflows/assertions/main.n
 /* Define input channels
 --------------------------------------------------------------------------------------*/
 test_data = [
-    [[id:"sample1"], "https://raw.githubusercontent.com/luslab/nf-core-test-data/main/data/metadata/10x_test.csv"]
+    [[id:"sample1"], "${params.test_data_dir}metadata/10x_test.csv"]
 ] 
 
 /*------------------------------------------------------------------------------------*/
