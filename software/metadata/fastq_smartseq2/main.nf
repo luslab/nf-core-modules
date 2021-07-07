@@ -6,7 +6,7 @@ include {UNTAR} from "$baseDir/../../../untar/main.nf"
 workflow FASTQ_METADATA_SMARTSEQ2 {
     take: file_path
     main:
- 
+
         Channel
             .fromPath( file_path )
             .splitCsv(header:true)
