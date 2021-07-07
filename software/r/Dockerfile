@@ -2,7 +2,7 @@
 FROM rocker/r-base:latest
 
 LABEL authors="alex.thiery@crick.ac.uk" \
-      description="Docker image containing Rstudio and getopt"
+    description="Docker image containing Rstudio and getopt"
 
 # update apt-get and install
 RUN R -e "install.packages('getopt')"

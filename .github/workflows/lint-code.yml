@@ -53,4 +53,3 @@ jobs:
 
       - name: Run yaml-lint
         run: yamllint $(find ${GITHUB_WORKSPACE} -type f -name "*.yaml" -or -name "*.yml")
-        

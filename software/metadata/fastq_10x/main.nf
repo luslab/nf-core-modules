@@ -3,7 +3,7 @@ include {UNTAR} from "$baseDir/../../../untar/main.nf"
 workflow FASTQ_METADATA_10X {
     take: file_path
     main:
-    
+
         Channel
             .fromPath( file_path )
             .splitCsv(header:true)
@@ -36,7 +36,7 @@ def processRow(LinkedHashMap row) {
     for (Map.Entry<String, ArrayList<String>> entry : row.entrySet()) {
         String key = entry.getKey();
         String value = entry.getValue();
-    
+
         if(key != "id" && key != "data") {
             meta.put(key, value)
         }
@@ -50,12 +50,12 @@ def processRow(LinkedHashMap row) {
 
 def processtenx(ArrayList row, String glob='.*fastq.gz'){
     def data = row[1]
-    
+
     // List files
     if (!(data instanceof List) && data.isDirectory()){
         data = data.listFiles()
     }
-    
+
     // Filter files not matching glob
     def files = []
     for(def file:data){
@@ -63,7 +63,7 @@ def processtenx(ArrayList row, String glob='.*fastq.gz'){
             files.add(file)
         }
     }
-    
+
     def array = [row[0], files]
     return(array)
 }

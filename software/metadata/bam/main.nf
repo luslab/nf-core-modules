@@ -17,7 +17,7 @@ def processRow(LinkedHashMap row, boolean flattenData = false) {
     for (Map.Entry<String, ArrayList<String>> entry : row.entrySet()) {
         String key = entry.getKey();
         String value = entry.getValue();
-    
+
         if(key != "id" && key != "data1" && key != "data2") {
             meta.put(key, value)
         }
@@ -31,7 +31,7 @@ def processRow(LinkedHashMap row, boolean flattenData = false) {
             array = [ meta, [ file(row.data1, checkIfExists: true), file(row.data2, checkIfExists: true) ] ]
         }
     }
-    else { 
+    else {
         if (row.data2 == null) {
             array = [ meta, file(row.data1, checkIfExists: true) ]
         } else {
