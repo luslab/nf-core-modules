@@ -1,10 +1,10 @@
 name: test-testing-workflows
 
 on:
-#  push:
-#    branches: [ feat-model-module ]
   pull_request:
-    branches: [ master ]
+    branches: [ feat-testing ]
+  push:
+    branches: [ feat-testing ]
 
 jobs:
   test-workflows:

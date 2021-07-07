@@ -3,7 +3,9 @@ name: lint-dockerfiles
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [ feat-testing ]
+  push:
+    branches: [ feat-testing ]
 
 jobs:
   lint-docker:
@@ -11,12 +13,7 @@ jobs:
     strategy:
         matrix:
           docker-name: ['Dockerfile']
-          module-name: []
-          # include:
-          #   - docker-name: 'Dockerfile.cpu'
-          #     module-name: 'guppy'
-          #   - docker-name: 'Dockerfile.gpu'
-          #     module-name: 'guppy'
+          module-name: ['r']
     steps:
       - uses: actions/checkout@v2
       - name: Lint Dockerfile

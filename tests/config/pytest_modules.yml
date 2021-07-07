@@ -30,10 +30,11 @@ paraclu/paraclu:
   - software/paraclu/paraclu/**
   - tests/software/paraclu/paraclu/**
 
-r:
-  - software/r/**
-  - tests/software/r/**
-
 ultraplex:
   - software/ultraplex/**
   - tests/software/ultraplex/**
+
+# Does not fit with nf-core testing really
+# r:
+#   - software/r/**
+#   - tests/software/r/**

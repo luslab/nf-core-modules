@@ -1,4 +1,4 @@
-name: Code Linting
+name: lint-code
 
 on:
   pull_request:
