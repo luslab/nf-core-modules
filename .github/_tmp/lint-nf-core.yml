@@ -1,4 +1,4 @@
-name: nf-core linting
+name: lint-nf-core
 
 on:
   pull_request:
