@@ -1,0 +1,40 @@
+crosslinks/coverage:
+  - modules/crosslinks/coverage/**
+  - tests/modules/crosslinks/coverage/**
+
+crosslinks/normcoverage:
+  - modules/crosslinks/normcoverage/**
+  - tests/modules/crosslinks/normcoverage/**
+
+htseq/count:
+  - modules/htseq/count/**
+  - tests/modules/htseq/count/**
+
+icount/peaks:
+  - modules/icount/peaks/**
+  - tests/modules/icount/peaks/**
+
+icount/segment:
+  - modules/icount/segment/**
+  - tests/modules/icount/segment/**
+
+paraclu/convert:
+  - modules/paraclu/convert/**
+  - tests/modules/paraclu/convert/**
+
+paraclu/cut:
+  - modules/paraclu/cut/**
+  - tests/modules/paraclu/cut/**
+
+paraclu/paraclu:
+  - modules/paraclu/paraclu/**
+  - tests/modules/paraclu/paraclu/**
+
+ultraplex:
+  - modules/ultraplex/**
+  - tests/modules/ultraplex/**
+
+# Does not fit with nf-core testing really
+# r:
+#   - modules/r/**
+#   - tests/modules/r/**
