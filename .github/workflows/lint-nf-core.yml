@@ -2,9 +2,9 @@ name: lint-nf-core
 
 on:
   pull_request:
-    branches: [ feat-testing ]
-  push:
-    branches: [ feat-testing ]
+    branches: [ dev, main ]
+  # push:
+  #   branches: [ feat-testing ]
 
 jobs:
   changes:
