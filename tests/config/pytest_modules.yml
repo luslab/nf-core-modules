@@ -2,7 +2,7 @@ clippy:
   - modules/clippy/**
   - tests/modules/clippy/**
 
-  crosslinks/coverage:
+crosslinks/coverage:
   - modules/crosslinks/coverage/**
   - tests/modules/crosslinks/coverage/**
 
