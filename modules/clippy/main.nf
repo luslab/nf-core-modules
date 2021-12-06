@@ -10,7 +10,7 @@ process CLIPPY {
     label "regular_queue"
     publishDir "${params.outdir}",
         mode: params.publish_dir_mode,
-        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:[:], publish_by_meta:[]) }
+        saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:meta, publish_by_meta:['id']) }
 
     conda (params.enable_conda ? "bioconda::clippy=1.3.1" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
