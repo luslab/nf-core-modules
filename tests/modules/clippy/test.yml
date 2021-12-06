@@ -3,7 +3,11 @@
   tags:
     - clippy
   files:
-    - path: results/icount/sample1.scores.tsv
-      md5sum: 477c7bec8b1a1faf209afc514235a111
-    - path: results/icount/sample4.scores.tsv
-      md5sum: b0384def31f9f125ad03558d181c7b05
+    - path: results/clippy/sample1_rollmean15_stdev1_minGeneCount5.bed.gz
+      md5sum: cf7a1422ad82321aa4caf1fb315b46b4
+    - path: results/clippy/sample1_rollmean15_stdev1_minGeneCount5_broadPeaks.bed.gz
+      md5sum: 734a3fe68bbcf2520822295da0f9dbdc
+    - path: results/clippy/sample4_rollmean15_stdev1_minGeneCount5.bed.gz
+      md5sum: acc7804c29aa45e22526e2a9eb455628
+    - path: results/clippy/sample4_rollmean15_stdev1_minGeneCount5_broadPeaks.bed.gz
+      md5sum: a41cb1bc2189881a6014b1af316fdfe7

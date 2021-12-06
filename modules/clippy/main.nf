@@ -39,8 +39,8 @@ process CLIPPY {
         -g $fai \
         -t ${task.cpus} \
         $options.args
-    gzip *_broadPeaks.bed
-    gzip *[0-9].bed
+    gzip -n *_broadPeaks.bed
+    gzip -n *[0-9].bed
     echo \$(clippy -v) > ${software}.version.txt
     """
 }
