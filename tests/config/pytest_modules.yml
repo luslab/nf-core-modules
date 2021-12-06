@@ -1,4 +1,8 @@
-crosslinks/coverage:
+clippy:
+  - modules/clippy/**
+  - tests/modules/clippy/**
+
+  crosslinks/coverage:
   - modules/crosslinks/coverage/**
   - tests/modules/crosslinks/coverage/**
 
