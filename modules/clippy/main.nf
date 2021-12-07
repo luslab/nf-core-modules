@@ -12,11 +12,11 @@ process CLIPPY {
         mode: params.publish_dir_mode,
         saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:meta, publish_by_meta:['id']) }
 
-    conda (params.enable_conda ? "bioconda::clippy=1.3.1" : null)
+    conda (params.enable_conda ? "bioconda::clippy=1.3.2" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/clippy:1.3.1--pyhdfd78af_2"
+        container "https://depot.galaxyproject.org/singularity/clippy:1.3.2--pyhdfd78af_0"
     } else {
-        container "quay.io/biocontainers/clippy:1.3.1--pyhdfd78af_2"
+        container "quay.io/biocontainers/clippy:1.3.2--pyhdfd78af_0"
     }
 
     input:
@@ -25,9 +25,9 @@ process CLIPPY {
     path(fai)
 
     output:
-    tuple val(meta), path("*_broadPeaks.bed.gz"), emit: peaks
-    tuple val(meta), path("*[0-9].bed.gz"),       emit: summits
-    path "*.version.txt",                         emit: version
+    tuple val(meta), path("*_Peaks.bed.gz"),   emit: peaks
+    tuple val(meta), path("*_Summits.bed.gz"), emit: summits
+    path "*.version.txt",                      emit: version
 
     script:
     def software = getSoftwareName(task.process)
@@ -39,8 +39,8 @@ process CLIPPY {
         -g $fai \
         -t ${task.cpus} \
         $options.args
-    gzip -n *_broadPeaks.bed
-    gzip -n *[0-9].bed
+    gzip -n *_Peaks.bed
+    gzip -n *_Summits.bed
     echo \$(clippy -v) > ${software}.version.txt
     """
 }
