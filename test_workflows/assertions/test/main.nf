@@ -37,7 +37,7 @@ expected_line_counts = [
 
 expected_md5_hashes = [
     yeast: "810ef8fc4658526de88ed0a5f157de12",
-    human: "320cd25e4451f3fde5c6619e58b70010"
+    human: "e9ce36e75cd57d255ad64eb2ecca4dd0"
 ]
 
 /*------------------------------------------------------------------------------------*/

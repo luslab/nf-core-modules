@@ -1,0 +1,13 @@
+- name: clippy
+  command: nextflow run ./tests/modules/clippy -c tests/config/nextflow.config
+  tags:
+    - clippy
+  files:
+    - path: results/clippy/sample1_rollmean15_stdev1_minGeneCount5.bed.gz
+      md5sum: cf7a1422ad82321aa4caf1fb315b46b4
+    - path: results/clippy/sample1_rollmean15_stdev1_minGeneCount5_broadPeaks.bed.gz
+      md5sum: 734a3fe68bbcf2520822295da0f9dbdc
+    - path: results/clippy/sample4_rollmean15_stdev1_minGeneCount5.bed.gz
+      md5sum: acc7804c29aa45e22526e2a9eb455628
+    - path: results/clippy/sample4_rollmean15_stdev1_minGeneCount5_broadPeaks.bed.gz
+      md5sum: a41cb1bc2189881a6014b1af316fdfe7
