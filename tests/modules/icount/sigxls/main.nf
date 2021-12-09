@@ -4,7 +4,7 @@
 nextflow.enable.dsl=2
 
 // Log
-log.info ("Starting tests for iCount...")
+log.info ("Starting tests for iCount sigxls...")
 
 /*------------------------------------------------------------------------------------*/
 /* Define params
@@ -14,7 +14,7 @@ log.info ("Starting tests for iCount...")
 /* Module inclusions 
 --------------------------------------------------------------------------------------*/
 
-include {ICOUNT_PEAKS} from '../../../../modules/icount/peaks/main.nf' addParams( options: [args: '--half_window 3 --fdr 0.05'] )
+include {ICOUNT_SIGXLS} from '../../../../modules/icount/sigxls/main.nf' addParams( options: [args: '--half_window 3 --fdr 0.05'] )
 include {
     ASSERT_CHANNEL_COUNT;
     ASSERT_LINE_NUMBER as ASSERT_PEAKS_LINE_NUMBER;
@@ -77,15 +77,15 @@ expected_scores_hashes = [
 --------------------------------------------------------------------------------------*/
 
 workflow {
-    ICOUNT_PEAKS( ch_bed, ch_seg) 
+    ICOUNT_SIGXLS( ch_bed, ch_seg) 
 
-    ASSERT_CHANNEL_COUNT( ICOUNT_PEAKS.out.peaks, "peaks", 2)
-    ASSERT_CHANNEL_COUNT( ICOUNT_PEAKS.out.scores, "scores", 2)
-    ASSERT_CHANNEL_COUNT( ICOUNT_PEAKS.out.version, "version", 2)
+    ASSERT_CHANNEL_COUNT( ICOUNT_SIGXLS.out.peaks, "peaks", 2)
+    ASSERT_CHANNEL_COUNT( ICOUNT_SIGXLS.out.scores, "scores", 2)
+    ASSERT_CHANNEL_COUNT( ICOUNT_SIGXLS.out.version, "version", 2)
 
-    ASSERT_PEAKS_LINE_NUMBER( ICOUNT_PEAKS.out.peaks, "peaks", expected_peak_line_counts)
-    ASSERT_SCORES_LINE_NUMBER( ICOUNT_PEAKS.out.scores, "scores", expected_scores_line_counts)
+    ASSERT_PEAKS_LINE_NUMBER( ICOUNT_SIGXLS.out.peaks, "peaks", expected_peak_line_counts)
+    ASSERT_SCORES_LINE_NUMBER( ICOUNT_SIGXLS.out.scores, "scores", expected_scores_line_counts)
 
-    ASSERT_PEAKS_MD5( ICOUNT_PEAKS.out.peaks, "peaks", expected_peak_hashes)
-    ASSERT_SCORES_MD5( ICOUNT_PEAKS.out.scores, "scores", expected_scores_hashes)
+    ASSERT_PEAKS_MD5( ICOUNT_SIGXLS.out.peaks, "peaks", expected_peak_hashes)
+    ASSERT_SCORES_MD5( ICOUNT_SIGXLS.out.scores, "scores", expected_scores_hashes)
 }
