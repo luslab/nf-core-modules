@@ -34,6 +34,10 @@ paraclu/paraclu:
   - modules/paraclu/paraclu/**
   - tests/modules/paraclu/paraclu/**
 
+peka:
+  - modules/peka/**
+  - tests/modules/peka/**
+
 ultraplex:
   - modules/ultraplex/**
   - tests/modules/ultraplex/**
