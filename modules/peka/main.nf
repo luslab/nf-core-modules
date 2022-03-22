@@ -12,11 +12,11 @@ process PEKA {
         mode: params.publish_dir_mode,
         saveAs: { filename -> saveFiles(filename:filename, options:params.options, publish_dir:getSoftwareName(task.process), meta:meta, publish_by_meta:['id']) }
 
-    conda (params.enable_conda ? "bioconda::peka=0.1.4" : null)
+    conda (params.enable_conda ? "bioconda::peka=0.1.5" : null)
     if (workflow.containerEngine == 'singularity' && !params.singularity_pull_docker_container) {
-        container "https://depot.galaxyproject.org/singularity/peka:0.1.4--pyhdfd78af_0"
+        container "https://depot.galaxyproject.org/singularity/peka:0.1.5--pyhdfd78af_0"
     } else {
-        container "quay.io/biocontainers/peka:0.1.4--pyhdfd78af_0"
+        container "quay.io/biocontainers/peka:0.1.5--pyhdfd78af_0"
     }
 
     input:
@@ -47,6 +47,6 @@ process PEKA {
         -gi $fai \
         -r $gtf \
         $options.args
-    echo "0.1.4" > ${software}.version.txt
+    echo "0.1.5" > ${software}.version.txt
     """
 }
