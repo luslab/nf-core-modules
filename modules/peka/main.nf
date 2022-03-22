@@ -50,4 +50,3 @@ process PEKA {
     echo "0.1.5" > ${software}.version.txt
     """
 }
-
