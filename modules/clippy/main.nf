@@ -4,10 +4,10 @@ process CLIPPY {
     label "high_mem"
     label "regular_queue"
 
-    conda (params.enable_conda ? "bioconda::clippy=1.3.1" : null)
+    conda (params.enable_conda ? "bioconda::clippy=1.3.3" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/clippy:1.3.1--pyhdfd78af_2' :
-        'quay.io/biocontainers/clippy:1.3.1--pyhdfd78af_2' }"
+        'https://depot.galaxyproject.org/singularity/clippy:1.3.3--pyhdfd78af_0' :
+        'quay.io/biocontainers/clippy:1.3.3--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(crosslinks)
@@ -15,9 +15,9 @@ process CLIPPY {
     path(fai)
 
     output:
-    tuple val(meta), path("$prefix*_broadPeaks.bed.gz"), emit: peaks
-    tuple val(meta), path("$prefix*[0-9].bed.gz"),       emit: summits
-    path "versions.yml",                                 emit: versions
+    tuple val(meta), path("*_Peaks.bed.gz"),   emit: peaks
+    tuple val(meta), path("*_Summits.bed.gz"), emit: summits
+    path "versions.yml",                       emit: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -32,8 +32,8 @@ process CLIPPY {
         -g $fai \
         -t ${task.cpus} \
         $args
-    gzip -n *_broadPeaks.bed
-    gzip -n *[0-9].bed
+    gzip -n *_Peaks.bed
+    gzip -n *_Summits.bed
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         clippy: \$(clippy -v)
