@@ -4,10 +4,10 @@
     - clippy
   files:
     - path: results/clippy/sample1_rollmean15_stdev1_minGeneCount5_Summits.bed.gz
-      md5sum: cf7a1422ad82321aa4caf1fb315b46b4
+      md5sum: aa73c965cd844cfec12d7e1c5a919dd3
     - path: results/clippy/sample1_rollmean15_stdev1_minGeneCount5_Summits_Peaks.bed.gz
       md5sum: 734a3fe68bbcf2520822295da0f9dbdc
     - path: results/clippy/sample4_rollmean15_stdev1_minGeneCount5_Summits.bed.gz
-      md5sum: acc7804c29aa45e22526e2a9eb455628
+      md5sum: 0c76e727bf82e3722c601739c6984cef
     - path: results/clippy/sample4_rollmean15_stdev1_minGeneCount5_Summits_Peaks.bed.gz
       md5sum: a41cb1bc2189881a6014b1af316fdfe7

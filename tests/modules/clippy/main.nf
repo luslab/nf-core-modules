@@ -73,8 +73,8 @@ expected_peak_hashes = [
 ]
 
 expected_summits_hashes = [
-    sample1: "1ce87295742299f7d3c649360c798abc",
-    sample4: "aaf7cf02c2406fed0ded98d965d503a1"
+    sample1: "dd7333e0346cde26575951f407058223",
+    sample4: "5c0d2a5aeb5b3f77ad351be1de8bafe9"
 ]
 
 /*------------------------------------------------------------------------------------*/
