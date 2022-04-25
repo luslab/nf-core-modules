@@ -4,7 +4,7 @@
 nextflow.enable.dsl=2
 
 // Log
-log.info ("Starting tests for iCount...")
+log.info ("Starting tests for iCount sigxls...")
 
 /*------------------------------------------------------------------------------------*/
 /* Define params
@@ -14,12 +14,12 @@ log.info ("Starting tests for iCount...")
 /* Module inclusions 
 --------------------------------------------------------------------------------------*/
 
-include {ICOUNT_PEAKS} from '../../../../modules/icount/peaks/main.nf' addParams( options: [args: '--half_window 3 --fdr 0.05'] )
+include {ICOUNT_SIGXLS} from '../../../../modules/icount/sigxls/main.nf' addParams( options: [args: '--half_window 3 --fdr 0.05'] )
 include {
     ASSERT_CHANNEL_COUNT;
-    ASSERT_LINE_NUMBER as ASSERT_PEAKS_LINE_NUMBER;
+    ASSERT_LINE_NUMBER as ASSERT_SIGXLS_LINE_NUMBER;
     ASSERT_LINE_NUMBER as ASSERT_SCORES_LINE_NUMBER;
-    ASSERT_MD5 as ASSERT_PEAKS_MD5;
+    ASSERT_MD5 as ASSERT_SIGXLS_MD5;
     ASSERT_MD5 as ASSERT_SCORES_MD5
 } from "../../../../test_workflows/assertions/main.nf"
 
@@ -52,7 +52,7 @@ Channel
     .map { row -> [ row[0], file(row[1], checkIfExists: true) ] }
     .set {ch_bed}
 
-expected_peak_line_counts = [
+expected_sigxls_line_counts = [
     sample1: 5,
     sample4: 4
 ]
@@ -62,7 +62,7 @@ expected_scores_line_counts = [
     sample4: 195
 ]
 
-expected_peak_hashes = [
+expected_sigxls_hashes = [
     sample1: "4984fdc8e94ef357bd99dad420a098be",
     sample4: "22d80735d26199e75cf87e632c1b76e4"
 ]
@@ -77,15 +77,15 @@ expected_scores_hashes = [
 --------------------------------------------------------------------------------------*/
 
 workflow {
-    ICOUNT_PEAKS( ch_bed, ch_seg) 
+    ICOUNT_SIGXLS( ch_bed, ch_seg) 
 
-    ASSERT_CHANNEL_COUNT( ICOUNT_PEAKS.out.peaks, "peaks", 2)
-    ASSERT_CHANNEL_COUNT( ICOUNT_PEAKS.out.scores, "scores", 2)
-    ASSERT_CHANNEL_COUNT( ICOUNT_PEAKS.out.version, "version", 2)
+    ASSERT_CHANNEL_COUNT( ICOUNT_SIGXLS.out.sigxls, "sigxls", 2)
+    ASSERT_CHANNEL_COUNT( ICOUNT_SIGXLS.out.scores, "scores", 2)
+    ASSERT_CHANNEL_COUNT( ICOUNT_SIGXLS.out.version, "version", 2)
 
-    ASSERT_PEAKS_LINE_NUMBER( ICOUNT_PEAKS.out.peaks, "peaks", expected_peak_line_counts)
-    ASSERT_SCORES_LINE_NUMBER( ICOUNT_PEAKS.out.scores, "scores", expected_scores_line_counts)
+    ASSERT_SIGXLS_LINE_NUMBER( ICOUNT_SIGXLS.out.sigxls, "sigxls", expected_sigxls_line_counts)
+    ASSERT_SCORES_LINE_NUMBER( ICOUNT_SIGXLS.out.scores, "scores", expected_scores_line_counts)
 
-    ASSERT_PEAKS_MD5( ICOUNT_PEAKS.out.peaks, "peaks", expected_peak_hashes)
-    ASSERT_SCORES_MD5( ICOUNT_PEAKS.out.scores, "scores", expected_scores_hashes)
+    ASSERT_SIGXLS_MD5( ICOUNT_SIGXLS.out.sigxls, "sigxls", expected_sigxls_hashes)
+    ASSERT_SCORES_MD5( ICOUNT_SIGXLS.out.scores, "scores", expected_scores_hashes)
 }

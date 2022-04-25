@@ -4,7 +4,7 @@
 nextflow.enable.dsl=2
 
 // Log
-log.info ("Starting tests for iCount...")
+log.info ("Starting tests for iCount segment...")
 
 /*------------------------------------------------------------------------------------*/
 /* Define params

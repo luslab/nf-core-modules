@@ -14,9 +14,9 @@ htseq/count:
   - modules/htseq/count/**
   - tests/modules/htseq/count/**
 
-icount/peaks:
-  - modules/icount/peaks/**
-  - tests/modules/icount/peaks/**
+icount/sigxls:
+  - modules/icount/sigxls/**
+  - tests/modules/icount/sigxls/**
 
 icount/segment:
   - modules/icount/segment/**
