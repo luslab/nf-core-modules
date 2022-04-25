@@ -30,6 +30,7 @@ process HTSEQ_COUNT {
         ${gtf} \\
         --nprocesses $task.cpus \\
         > ${prefix}.tsv
+
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         htseq-count: \$(htseq-count --version)
