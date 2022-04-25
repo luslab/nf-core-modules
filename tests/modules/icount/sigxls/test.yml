@@ -1,5 +1,5 @@
 - name: icount peaks
-  command: nextflow run ./tests/modules/icount/sigxls -c tests/config/nextflow.config
+  command: nextflow run ./tests/modules/icount/sigxls -c tests/config/nextflow.config -c tests/modules/icount/sigxls/test.config
   tags:
     - icount
     - icount/sigxls

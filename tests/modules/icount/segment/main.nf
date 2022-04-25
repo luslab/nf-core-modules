@@ -14,7 +14,7 @@ log.info ("Starting tests for iCount segment...")
 /* Module inclusions 
 --------------------------------------------------------------------------------------*/
 
-include {ICOUNT_SEGMENT} from '../../../../modules/icount/segment/main.nf' addParams( options: [:] )
+include {ICOUNT_SEGMENT} from '../../../../modules/icount/segment/main.nf'
 include {
     ASSERT_CHANNEL_COUNT;
     ASSERT_LINE_NUMBER;
@@ -49,7 +49,7 @@ workflow {
     ICOUNT_SEGMENT( ch_gtf, ch_fai) 
 
     ASSERT_CHANNEL_COUNT( ICOUNT_SEGMENT.out.gtf, "gtf", 1)
-    ASSERT_CHANNEL_COUNT( ICOUNT_SEGMENT.out.version, "version", 1)
+    ASSERT_CHANNEL_COUNT( ICOUNT_SEGMENT.out.versions, "versions", 1)
 
     ICOUNT_SEGMENT.out.gtf
         .map{ [[id: "icount_segmentation"], it] }
