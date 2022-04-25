@@ -37,5 +37,5 @@ workflow {
     ASSERT_CHANNEL_COUNT( R.out.r_output, "r_output", 1)
     ASSERT_CHANNEL_COUNT( R.out.versions, "versions", 1)
 
-    ASSERT_PEAKS_MD5( R.out.r_output, "r_output", expected_hashes)
+    ASSERT_MD5( R.out.r_output, "r_output", expected_hashes)
 }
