@@ -4,7 +4,10 @@ process CLIPPY {
     label "high_mem"
     label "regular_queue"
 
-    conda (params.enable_conda ? "bioconda::clippy=1.3.3" : null)
+    // A dependency issue in Dash (https://github.com/plotly/dash/issues/1992)
+    // means we have to specify a version for werkzeug. This should be fixed in
+    // the bioconda recipe in the future.
+    conda (params.enable_conda ? "bioconda::clippy=1.3.3 conda-forge::werkzeug=2.0.0" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/clippy:1.3.3--pyhdfd78af_0' :
         'quay.io/biocontainers/clippy:1.3.3--pyhdfd78af_0' }"
