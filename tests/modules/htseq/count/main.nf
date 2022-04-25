@@ -10,7 +10,7 @@ log.info ("Starting tests for htseq...")
 /* Module inclusions
 --------------------------------------------------------------------------------------*/
 
-include { HTSEQ_COUNT } from '../../../../modules/htseq/count/main.nf' addParams( options: [args: '-f bam -s no -m union'] )  
+include { HTSEQ_COUNT } from '../../../../modules/htseq/count/main.nf'
 include { ASSERT_CHANNEL_COUNT } from '../../../../test_workflows/assertions/main.nf'
 include { MD5 } from '../../../../test_workflows/assertions/main.nf'
 
@@ -43,7 +43,7 @@ workflow {
 
     //Check count
     ASSERT_CHANNEL_COUNT( HTSEQ_COUNT.out.counts, "counts", 2)
-    ASSERT_CHANNEL_COUNT( HTSEQ_COUNT.out.version, "version", 2)
+    ASSERT_CHANNEL_COUNT( HTSEQ_COUNT.out.versions, "versions", 2)
 
     //Check MD5
     MD5( HTSEQ_COUNT.out.counts )

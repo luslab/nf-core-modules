@@ -1,5 +1,5 @@
 - name: htseq count
-  command: nextflow run ./tests/modules/htseq/count -c tests/config/nextflow.config
+  command: nextflow run ./tests/modules/htseq/count -c tests/config/nextflow.config -c tests/modules/htseq/count/test.config
   tags:
     - htseq
     - htseq/count
