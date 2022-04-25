@@ -14,7 +14,7 @@ log.info ("Starting tests for iCount sigxls...")
 /* Module inclusions 
 --------------------------------------------------------------------------------------*/
 
-include {ICOUNT_SIGXLS} from '../../../../modules/icount/sigxls/main.nf' addParams( options: [args: '--half_window 3 --fdr 0.05'] )
+include {ICOUNT_SIGXLS} from '../../../../modules/icount/sigxls/main.nf'
 include {
     ASSERT_CHANNEL_COUNT;
     ASSERT_LINE_NUMBER as ASSERT_SIGXLS_LINE_NUMBER;
@@ -81,7 +81,7 @@ workflow {
 
     ASSERT_CHANNEL_COUNT( ICOUNT_SIGXLS.out.sigxls, "sigxls", 2)
     ASSERT_CHANNEL_COUNT( ICOUNT_SIGXLS.out.scores, "scores", 2)
-    ASSERT_CHANNEL_COUNT( ICOUNT_SIGXLS.out.version, "version", 2)
+    ASSERT_CHANNEL_COUNT( ICOUNT_SIGXLS.out.versions, "versions", 2)
 
     ASSERT_SIGXLS_LINE_NUMBER( ICOUNT_SIGXLS.out.sigxls, "sigxls", expected_sigxls_line_counts)
     ASSERT_SCORES_LINE_NUMBER( ICOUNT_SIGXLS.out.scores, "scores", expected_scores_line_counts)
