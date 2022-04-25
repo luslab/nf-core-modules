@@ -4,7 +4,7 @@
     - crosslinks
     - crosslinks/normcoverage
   files:
-    - path: results/crosslinks/sample1.norm.bedgraph.gz
+    - path: results/crosslinks_normcoverage/sample1.norm.bedgraph.gz
       md5sum: 1fa6c24abd03b07ad8c0a5d2f39b371d
-    - path: results/crosslinks/sample4.norm.bedgraph.gz
+    - path: results/crosslinks_normcoverage/sample4.norm.bedgraph.gz
       md5sum: f281eecf840f53b8dc2fd46e82266a74

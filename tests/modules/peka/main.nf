@@ -14,7 +14,7 @@ log.info ("Starting tests for PEKA...")
 /* Module inclusions 
 --------------------------------------------------------------------------------------*/
 
-include {PEKA} from '../../../modules/peka/main.nf' addParams( options: [args: "-sr intron UTR3"] )
+include {PEKA} from '../../../modules/peka/main.nf'
 include {
     ASSERT_CHANNEL_COUNT;
     ASSERT_LINE_NUMBER as ASSERT_DISTRIBUTION_LINE_NUMBER;
@@ -102,7 +102,7 @@ workflow {
     ASSERT_CHANNEL_COUNT( PEKA.out.distribution, "distribution", 1)
     ASSERT_CHANNEL_COUNT( PEKA.out.cluster, "cluster", 1)
     ASSERT_CHANNEL_COUNT( PEKA.out.pdf, "pdf", 1)
-    ASSERT_CHANNEL_COUNT( PEKA.out.version, "version", 1)
+    ASSERT_CHANNEL_COUNT( PEKA.out.versions, "versions", 1)
 
     ASSERT_DISTRIBUTION_LINE_NUMBER(
         PEKA.out.distribution.map( unfold_meta ).flatten().collate(2),

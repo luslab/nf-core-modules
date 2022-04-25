@@ -14,7 +14,7 @@ log.info ("Starting tests for Clippy...")
 /* Module inclusions 
 --------------------------------------------------------------------------------------*/
 
-include {CLIPPY} from '../../../modules/clippy/main.nf' addParams( options: [args: ""] )
+include {CLIPPY} from '../../../modules/clippy/main.nf'
 include {
     ASSERT_CHANNEL_COUNT;
     ASSERT_LINE_NUMBER as ASSERT_PEAKS_LINE_NUMBER;
@@ -73,8 +73,8 @@ expected_peak_hashes = [
 ]
 
 expected_summits_hashes = [
-    sample1: "1ce87295742299f7d3c649360c798abc",
-    sample4: "aaf7cf02c2406fed0ded98d965d503a1"
+    sample1: "dd7333e0346cde26575951f407058223",
+    sample4: "5c0d2a5aeb5b3f77ad351be1de8bafe9"
 ]
 
 /*------------------------------------------------------------------------------------*/
@@ -86,7 +86,7 @@ workflow {
 
     ASSERT_CHANNEL_COUNT( CLIPPY.out.peaks, "peaks", 2)
     ASSERT_CHANNEL_COUNT( CLIPPY.out.summits, "summits", 2)
-    ASSERT_CHANNEL_COUNT( CLIPPY.out.version, "version", 2)
+    ASSERT_CHANNEL_COUNT( CLIPPY.out.versions, "versions", 2)
 
     ASSERT_PEAKS_LINE_NUMBER( CLIPPY.out.peaks, "peaks", expected_peak_line_counts)
     ASSERT_SUMMITS_LINE_NUMBER( CLIPPY.out.summits, "summits", expected_summits_line_counts)
