@@ -42,7 +42,6 @@ ultraplex:
   - modules/ultraplex/**
   - tests/modules/ultraplex/**
 
-# Does not fit with nf-core testing really
-# r:
-#   - modules/r/**
-#   - tests/modules/r/**
+r:
+  - modules/r/**
+  - tests/modules/r/**

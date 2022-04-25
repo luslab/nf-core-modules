@@ -7,7 +7,7 @@ nextflow.enable.dsl=2
 --------------------------------------------------------------------------------------*/
 
 include { R } from '../../../modules/r/main.nf'
-include { ASSERT_CHANNEL_COUNT } from '../../../test_workflows/assertions/main.nf'
+include { ASSERT_CHANNEL_COUNT; ASSERT_MD5 } from '../../../test_workflows/assertions/main.nf'
 
 /*------------------------------------------------------------------------------------*/
 /* Define input channels
@@ -19,6 +19,10 @@ test_data = [
 /*------------------------------------------------------------------------------------*/
 /* Run tests
 --------------------------------------------------------------------------------------*/
+
+expected_hashes = [
+    sample1: "27e07fdd6723105c0d09fa573816308e"
+]
 
 Channel
     .from(test_data)
@@ -32,4 +36,6 @@ workflow {
     )
     ASSERT_CHANNEL_COUNT( R.out.r_output, "r_output", 1)
     ASSERT_CHANNEL_COUNT( R.out.versions, "versions", 1)
+
+    ASSERT_PEAKS_MD5( R.out.r_output, "r_output", expected_hashes)
 }
