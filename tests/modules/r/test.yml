@@ -2,3 +2,6 @@
   command: nextflow run ./tests/modules/r/main.nf -c tests/config/nextflow.config
   tags:
     - r
+  files:
+    - path: results/r/test_out.csv
+      md5sum: 27e07fdd6723105c0d09fa573816308e

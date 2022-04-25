@@ -3,17 +3,10 @@
 nextflow.enable.dsl=2
 
 /*------------------------------------------------------------------------------------*/
-/* Define params
---------------------------------------------------------------------------------------*/
-
-def analysis_scripts = [:]
-analysis_scripts.r_test = file("$projectDir/bin/r_test.R", checkIfExists: true)
-
-/*------------------------------------------------------------------------------------*/
 /* Module inclusions
 --------------------------------------------------------------------------------------*/
 
-include { R } from '../../../modules/r/main.nf' addParams(script: analysis_scripts.r_test)
+include { R } from '../../../modules/r/main.nf'
 include { ASSERT_CHANNEL_COUNT } from '../../../test_workflows/assertions/main.nf'
 
 /*------------------------------------------------------------------------------------*/
@@ -33,6 +26,10 @@ Channel
     .set {ch_test}
 
 workflow {
-    R (ch_test)
+    R (
+        file("$projectDir/bin/r_test.R", checkIfExists: true),
+        ch_test
+    )
     ASSERT_CHANNEL_COUNT( R.out.r_output, "r_output", 1)
+    ASSERT_CHANNEL_COUNT( R.out.versions, "versions", 1)
 }
