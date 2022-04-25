@@ -6,7 +6,7 @@ process HTSEQ_COUNT {
 
     conda (params.enable_conda ? "bioconda::htseq=0.13.5" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/htseq:0.13.5--py39h70b41aa_1:
+        'https://depot.galaxyproject.org/singularity/htseq:0.13.5--py39h70b41aa_1' :
         'quay.io/biocontainers/htseq:0.13.5--py39h70b41aa_1' }"
 
     input:
