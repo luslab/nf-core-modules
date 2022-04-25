@@ -8,7 +8,9 @@ log.info ("Starting tests for test_flows...")
 /* Module inclusions
 /*------------------------------------------------------------------------------------*/
 
-include { ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_CONVERT; ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_VERSION } from '../../../../test_workflows/assertions/main.nf'
+include {
+    ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_CONVERT;
+    ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_VERSION } from '../../../../test_workflows/assertions/main.nf'
 include { ASSERT_LINE_NUMBER   } from '../../../../test_workflows/assertions/main.nf'
 include { ASSERT_MD5 } from '../../../../test_workflows/assertions/main.nf'
 include { PARACLU_CONVERT } from '../../../../modules/paraclu/convert/main.nf'
@@ -47,7 +49,7 @@ workflow {
     PARACLU_CONVERT { ch_peaks }
 
     ASSERT_CHANNEL_COUNT_CONVERT( PARACLU_CONVERT.out.peaks, "PARACLU_CONVERT", 2 )
-    ASSERT_CHANNEL_COUNT_VERSION( PARACLU_CONVERT.out.version, "PARACLU_VERSION", 2 )
+    ASSERT_CHANNEL_COUNT_VERSION( PARACLU_CONVERT.out.versions, "PARACLU_VERSIONS", 2 )
     ASSERT_LINE_NUMBER( PARACLU_CONVERT.out.peaks, "PARACLU_CONVERT", expected_line_counts )
     ASSERT_MD5( PARACLU_CONVERT.out.peaks, "PARACLU_CONVERT", expected_md5_hashes )
 
