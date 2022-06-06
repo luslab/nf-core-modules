@@ -58,23 +58,23 @@ Channel
     .set {ch_bed}
 
 expected_peak_line_counts = [
-    sample1: 2,
+    sample1: 1,
     sample4: 1
 ]
 
 expected_summits_line_counts = [
     sample1: 26,
-    sample4: 12
+    sample4: 13
 ]
 
 expected_peak_hashes = [
-    sample1: "6a085d080615c47c5460be340f8d73f4",
-    sample4: "235ebe1d97ea960ae5b7851996386d1e"
+    sample1: "4d2c3fab6ce49cae7cc56e94e5cc20b0",
+    sample4: "1bd965210ff9d6d523fd0bdf46bb137b"
 ]
 
 expected_summits_hashes = [
-    sample1: "dd7333e0346cde26575951f407058223",
-    sample4: "5c0d2a5aeb5b3f77ad351be1de8bafe9"
+    sample1: "6047b4a5e14021a9d4e61fd97b04ae9a",
+    sample4: "58ab0d9fb902851e0f0dbb9c7dc3fdce"
 ]
 
 /*------------------------------------------------------------------------------------*/

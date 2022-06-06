@@ -3,11 +3,11 @@
   tags:
     - clippy
   files:
-    - path: results/clippy/sample1_rollmean15_stdev1_minGeneCount5_Summits.bed.gz
-      md5sum: aa73c965cd844cfec12d7e1c5a919dd3
-    - path: results/clippy/sample1_rollmean15_stdev1_minGeneCount5_Summits_Peaks.bed.gz
-      md5sum: 734a3fe68bbcf2520822295da0f9dbdc
-    - path: results/clippy/sample4_rollmean15_stdev1_minGeneCount5_Summits.bed.gz
-      md5sum: 0c76e727bf82e3722c601739c6984cef
-    - path: results/clippy/sample4_rollmean15_stdev1_minGeneCount5_Summits_Peaks.bed.gz
-      md5sum: a41cb1bc2189881a6014b1af316fdfe7
+    - path: results/clippy/sample1_rollmean10_stdev1_minGeneCount5_Summits.bed.gz
+      md5sum: 965f828d267f0e6b36b9e2dbcc6c00b2
+    - path: results/clippy/sample1_rollmean10_stdev1_minGeneCount5_Peaks.bed.gz
+      md5sum: 5d8dbfbfc90fff49a473d1a4c572f059
+    - path: results/clippy/sample4_rollmean10_stdev1_minGeneCount5_Summits.bed.gz
+      md5sum: 6e45028dbcf6d99c3c5b79dfbf26010d
+    - path: results/clippy/sample4_rollmean10_stdev1_minGeneCount5_Peaks.bed.gz
+      md5sum: ce294ccd9e178451b14dedb02b423d2a
