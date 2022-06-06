@@ -1,10 +1,10 @@
 - name: paraclu cut
-  command: nextflow run ./tests/modules/paraclu/cut -c tests/config/nextflow.config
+  command: nextflow run ./tests/modules/paraclu/cut -c tests/config/nextflow.config -c tests/modules/paraclu/cut/test.config
   tags:
     - paraclu
     - paraclu/cut
   files:
-    - path: results/paraclu/sample1.peaks.tsv.gz
+    - path: results/paraclu_cut/sample1.peaks.tsv.gz
       md5sum: b048a33808b59897ef5031e8fa228a0c
-    - path: results/paraclu/sample4.peaks.tsv.gz
+    - path: results/paraclu_cut/sample4.peaks.tsv.gz
       md5sum: 191750fcbc59dd645a2028b694314dff

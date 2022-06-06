@@ -1,5 +1,5 @@
-process ICOUNT_SEGMENT {
-    tag "$gtf"
+process ICOUNT_SIGXLS {
+    tag "$meta.id"
     label "low_cores"
     label "low_mem"
     label "regular_queue"
@@ -10,25 +10,27 @@ process ICOUNT_SEGMENT {
         'quay.io/biocontainers/icount-mini:2.0.3--pyh5e36f6f_0' }"
 
     input:
-    path(gtf)
-    path(fai)
+    tuple val(meta), path(bed)
+    path(segmentation)
 
     output:
-    path("${prefix}.gtf"), emit: gtf
-    path("regions.gtf.gz"),          emit: regions
-    path "versions.yml",             emit: versions
+    tuple val(meta), path("*.sigxls.bed.gz"), emit: sigxls
+    tuple val(meta), path("*.scores.tsv"),    emit: scores
+    path "versions.yml",                      emit: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
-    def filename = "icount_segmentation"
-    prefix       = task.ext.prefix ? "${filename}${options.suffix}" : "${filename}"
+    def args = task.ext.args ?: ''
+    prefix   = task.ext.prefix ?: "${meta.id}"
     """
-    iCount-Mini segment \\
-        $gtf \\
-        ${prefix}.gtf \\
-        $fai
+    iCount-Mini sigxls \\
+        $segmentation \\
+        $bed \\
+        ${prefix}.sigxls.bed.gz \\
+        --scores ${prefix}.scores.tsv \\
+        $args
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
         iCount-Mini: \$(iCount-Mini -v)

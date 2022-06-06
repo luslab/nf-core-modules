@@ -1,0 +1,10 @@
+- name: icount peaks
+  command: nextflow run ./tests/modules/icount/sigxls -c tests/config/nextflow.config -c tests/modules/icount/sigxls/test.config
+  tags:
+    - icount
+    - icount/sigxls
+  files:
+    - path: results/icount_sigxls/sample1.scores.tsv
+      md5sum: 477c7bec8b1a1faf209afc514235a111
+    - path: results/icount_sigxls/sample4.scores.tsv
+      md5sum: b0384def31f9f125ad03558d181c7b05

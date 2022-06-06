@@ -8,13 +8,12 @@ log.info ("Starting tests for paraclu...")
 /* Module inclusions
 /*------------------------------------------------------------------------------------*/
 
-def Map options = [:]
-options.args = "10"
-
-include { ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_SIGXLS; ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_VERSION } from '../../../../test_workflows/assertions/main.nf'
+include {
+    ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_SIGXLS;
+    ASSERT_CHANNEL_COUNT as ASSERT_CHANNEL_COUNT_VERSION } from '../../../../test_workflows/assertions/main.nf'
 include { ASSERT_LINE_NUMBER   } from '../../../../test_workflows/assertions/main.nf'
 include { ASSERT_MD5 } from '../../../../test_workflows/assertions/main.nf'
-include { PARACLU_PARACLU } from '../../../../modules/paraclu/paraclu/main.nf' addParams( options: options ) 
+include { PARACLU_PARACLU } from '../../../../modules/paraclu/paraclu/main.nf'
 
 /*------------------------------------------------------------------------------------*/
 /* Define input channels
@@ -50,7 +49,7 @@ workflow {
     PARACLU_PARACLU { ch_crosslinks }
 
     ASSERT_CHANNEL_COUNT_SIGXLS( PARACLU_PARACLU.out.sigxls, "PARACLU_SIGXL", 2 )
-    ASSERT_CHANNEL_COUNT_VERSION( PARACLU_PARACLU.out.version, "PARACLU_VERSION", 2 )
+    ASSERT_CHANNEL_COUNT_VERSION( PARACLU_PARACLU.out.versions, "PARACLU_VERSIONS", 2 )
     ASSERT_LINE_NUMBER( PARACLU_PARACLU.out.sigxls, "PARACLU", expected_line_counts )
     ASSERT_MD5( PARACLU_PARACLU.out.sigxls, "PARACLU", expected_md5_hashes )
 

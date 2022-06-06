@@ -46,7 +46,7 @@ jobs:
       - name: Install NodeJS
         uses: actions/setup-node@v1
         with:
-          node-version: "10"
+          node-version: "12.9.0"
 
       - name: Install yaml-lint
         run: npm install -g yaml-lint

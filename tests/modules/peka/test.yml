@@ -1,4 +1,4 @@
 - name: peka
-  command: nextflow run ./tests/modules/peka -c tests/config/nextflow.config
+  command: nextflow run tests/modules/peka -c tests/config/nextflow.config -c tests/modules/peka/peka.config
   tags:
     - peka
