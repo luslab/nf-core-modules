@@ -4,10 +4,10 @@ process PEKA {
     label "low_mem"
     label "regular_queue"
 
-    conda (params.enable_conda ? "bioconda::peka=0.1.6" : null)
+    conda (params.enable_conda ? "bioconda::peka=1.0.0" : null)
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/peka:0.1.6--pyhdfd78af_0' :
-        'quay.io/biocontainers/peka:0.1.6--pyhdfd78af_0' }"
+        'https://depot.galaxyproject.org/singularity/peka:1.0.0--pyhdfd78af_0' :
+        'quay.io/biocontainers/peka:1.0.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(peaks)
@@ -41,7 +41,7 @@ process PEKA {
         $args
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        peka: 0.1.6
+        peka: 1.0.0
     END_VERSIONS
     """
 }
